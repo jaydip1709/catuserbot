@@ -560,7 +560,7 @@ async def get_pack_info(event):
         f"**Sticker Short Name:** `{get_stickerset.set.short_name}`\n"
         f"**Official:** `{get_stickerset.set.official}`\n"
         f"**Archived:** `{get_stickerset.set.archived}`\n"
-        f"**Stickers In Pack:** `{get_stickerset.set.count)}`\n"
+        f"**Stickers In Pack:** `{get_stickerset.set.count}`\n"
         f"**Emojis In Pack:**\n{' '.join(pack_emojis)}"
     )
     await catevent.edit(OUTPUT)
