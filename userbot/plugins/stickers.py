@@ -164,7 +164,7 @@ async def newpacksticker(
                 time=10,
             )
     else:
-        return pack , packname
+        return pack, packname
 
 
 async def add_to_pack(
@@ -241,7 +241,7 @@ async def add_to_pack(
             time=10,
         )
     else:
-        return pack , packname
+        return pack, packname
 
 
 @bot.on(admin_cmd(outgoing=True, pattern="kang ?(.*)"))
@@ -482,7 +482,7 @@ async def pack_kang(event):
                 not in htmlstr
             ):
                 async with event.client.conversation("Stickers") as conv:
-                    pack , catpackname = await add_to_pack(
+                    pack, catpackname = await add_to_pack(
                         catevent,
                         conv,
                         event,
@@ -498,7 +498,7 @@ async def pack_kang(event):
                     )
             else:
                 async with event.client.conversation("Stickers") as conv:
-                    pack , catpackname = await newpacksticker(
+                    pack, catpackname = await newpacksticker(
                         catevent,
                         conv,
                         cmd,
