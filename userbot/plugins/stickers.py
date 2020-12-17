@@ -511,7 +511,7 @@ async def pack_kang(event):
     result = "`This sticker pack is kanged into the following your sticker pack(s):`\n"
     a = 0
     for i in blablapacks:
-        a+=1
+        a += 1
         result += f"  •  [pack {a}](t.me/addstickers/{i})"
     await catevent.edit(result)
 
