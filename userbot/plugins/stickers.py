@@ -200,6 +200,7 @@ async def add_to_pack(
         x = await conv.get_response()
         if x.text == "Invalid pack selected.":
             return await newpacksticker(
+                catevent,
                 conv,
                 cmd,
                 args,
