@@ -134,7 +134,7 @@ async def memes(cat):
     else:
         await cat_meeme(top, bottom, CNG_FONTS, meme_file, meme)
     if cmd != "mmf":
-        meme = await convert_tosticker(meme)
+        meme = convert_tosticker(meme)
     await cat.client.send_file(cat.chat_id, meme, reply_to=catid)
     await cat.delete()
     os.remove(meme)
