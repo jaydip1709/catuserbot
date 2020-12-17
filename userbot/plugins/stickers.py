@@ -517,7 +517,7 @@ async def pack_kang(event):
         kangst += 1
         await asyncio.sleep(2)
     result = "`This sticker pack is kanged into the following your sticker pack(s):`\n"
-    for i in range(0,len(blablapacks)):
+    for i in range(0, len(blablapacks)):
         result += f"  •  [pack {blablapacknames[i]}](t.me/addstickers/{blablapacks[i]})"
     await catevent.edit(result)
 
