@@ -75,7 +75,7 @@ async def log_tagged_messages(event):
     if full is not None:
         resalt += f"\n<b>From : </b> 👤{htmlmentionuser(full.first_name , full.id)}"
     if messaget is not None:
-        resalt += f"\n<b>Message type : </b>{messaget}"
+        resalt += f"\n<b>Message type : </b><code>{messaget}</code>"
     else:
         resalt += f"\n<b>Message : </b>{event.message.message}"
     resalt += f"\n<b>Message link: </b><a href = 'https://t.me/c/{hmm.id}/{event.message.id}'> link</a>"
