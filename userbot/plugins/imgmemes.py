@@ -8,7 +8,6 @@ import re
 
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
-
 from . import (
     changemymind,
     deEmojify,

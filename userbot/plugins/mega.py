@@ -32,7 +32,7 @@ from urllib.error import HTTPError
 
 from pySmartDL import SmartDL
 
-from ..utils import  humanbytes
+from ..utils import humanbytes
 from . import LOGS, time_formatter
 
 TMP_DOWNLOAD_DIRECTORY = Config.TMP_DOWNLOAD_DIRECTORY

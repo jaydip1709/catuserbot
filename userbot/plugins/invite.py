@@ -1,8 +1,6 @@
 from telethon import functions
 
 
-
-
 @bot.on(admin_cmd(pattern="invite ?(.*)"))
 @bot.on(sudo_cmd(pattern="invite ?(.*)", allow_sudo=True))
 async def _(event):

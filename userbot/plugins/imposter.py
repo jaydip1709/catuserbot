@@ -7,7 +7,6 @@ Userbot plugin fot CatUserbot
 
 import asyncio
 
-
 from . import ALIVE_NAME
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"

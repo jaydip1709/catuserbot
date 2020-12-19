@@ -3,8 +3,6 @@
 import asyncio
 
 
-
-
 @bot.on(admin_cmd(pattern=f"loading$", outgoing=True))
 @bot.on(sudo_cmd(pattern=f"loading$", allow_sudo=True))
 async def _(event):

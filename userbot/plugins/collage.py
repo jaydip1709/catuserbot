@@ -7,7 +7,6 @@
 
 import os
 
-
 from . import make_gif, runcmd
 
 

@@ -12,8 +12,6 @@ import random
 from asyncio import sleep
 
 
-
-
 @bot.on(admin_cmd(pattern=r"sing$", outgoing=True))
 @bot.on(sudo_cmd(pattern=r"sing$", allow_sudo=True))
 async def _(event):

@@ -2,7 +2,6 @@ import sys
 from os import execl
 from time import sleep
 
-
 from . import BOTLOG, BOTLOG_CHATID, HEROKU_APP, bot
 
 

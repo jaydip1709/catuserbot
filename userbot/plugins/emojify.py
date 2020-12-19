@@ -5,7 +5,6 @@ Userbot plugin for CatUserbot
 """
 import emoji
 
-
 from . import fonts as emojify
 
 

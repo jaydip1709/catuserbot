@@ -10,7 +10,6 @@ from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
-
 from . import awooify, baguette, iphonex, lolice
 
 

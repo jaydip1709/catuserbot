@@ -7,7 +7,7 @@ import os
 import time
 from pathlib import Path
 
-from ..utils import  humanbytes
+from ..utils import humanbytes
 from . import runcmd
 
 

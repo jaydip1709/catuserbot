@@ -22,7 +22,6 @@ from telethon.tl.types import (
     MessageMediaPhoto,
 )
 
-
 from . import media_type
 
 combot_stickers_url = "https://combot.org/telegram/stickers?q="

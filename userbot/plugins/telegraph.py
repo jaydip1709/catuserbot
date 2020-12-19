@@ -6,7 +6,6 @@ from datetime import datetime
 from PIL import Image
 from telegraph import Telegraph, exceptions, upload_file
 
-
 from . import BOTLOG, BOTLOG_CHATID
 
 telegraph = Telegraph()

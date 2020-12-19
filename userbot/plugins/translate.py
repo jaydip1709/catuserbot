@@ -2,7 +2,6 @@ from asyncio import sleep
 
 from googletrans import LANGUAGES, Translator
 
-
 from . import BOTLOG, BOTLOG_CHATID, deEmojify
 
 TRT_LANG = "en"

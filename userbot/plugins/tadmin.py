@@ -7,7 +7,7 @@ from telethon.errors.rpcerrorlist import UserIdInvalidError
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.types import ChatBannedRights
 
-from ..utils import  errors_handler
+from ..utils import errors_handler
 from . import BOTLOG, BOTLOG_CHATID, extract_time, get_user_from_event
 
 # =================== CONSTANT ===================

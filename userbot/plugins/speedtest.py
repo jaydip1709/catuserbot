@@ -5,7 +5,6 @@ from datetime import datetime
 
 import speedtest
 
-
 from . import reply_id
 
 

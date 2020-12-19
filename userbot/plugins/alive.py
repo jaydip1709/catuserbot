@@ -3,7 +3,6 @@ from platform import python_version
 
 from telethon import version
 
-
 from . import ALIVE_NAME, StartTime, catdef, catversion, mention, reply_id
 
 DEFAULTUSER = ALIVE_NAME or "cat"

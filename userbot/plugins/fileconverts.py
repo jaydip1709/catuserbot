@@ -12,7 +12,7 @@ from telethon.errors import PhotoInvalidDimensionsError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import SendMediaRequest
 
-from ..utils import  progress
+from ..utils import progress
 from . import unzip
 
 if not os.path.isdir("./temp"):

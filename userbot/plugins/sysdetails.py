@@ -8,7 +8,6 @@ from datetime import datetime
 import psutil
 from telethon import __version__
 
-
 from . import ALIVE_NAME, runcmd
 
 # ================= CONSTANT =================

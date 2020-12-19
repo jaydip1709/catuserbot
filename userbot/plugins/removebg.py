@@ -4,7 +4,6 @@ import os
 
 import requests
 
-
 from . import convert_toimage, convert_tosticker, reply_id
 
 

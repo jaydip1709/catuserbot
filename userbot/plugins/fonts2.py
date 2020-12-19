@@ -1,6 +1,5 @@
 import random
 
-
 from . import fonts
 
 

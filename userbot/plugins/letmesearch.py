@@ -3,8 +3,6 @@ from asyncio import sleep
 import requests
 
 
-
-
 @bot.on(admin_cmd(pattern="lmg (.*)"))
 @bot.on(sudo_cmd(pattern="lmg (.*)", allow_sudo=True))
 async def _(event):
