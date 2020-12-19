@@ -1,10 +1,8 @@
 # pm and tagged messages logger for catuserbot by @mrconfused (@sandy1709)
 import asyncio
-
 from telethon import events
-
+from telethon.tl.functions.users import GetFullUserRequest
 import userbot.plugins.sql_helper.no_log_pms_sql as no_log_pms_sql
-
 from . import BOTLOG, BOTLOG_CHATID, LOGS, mentionuser
 
 RECENT_USER = None
@@ -65,12 +63,25 @@ async def log_tagged_messages(event):
             return
     except:
         pass
-    await asyncio.sleep(5)
+    full = None
+    try:
+        full = await client(GetFullUserRequest(event.message.from_id))
+    except:
+        pass
+    messaget = media_type(event)
+    resalt = f"#TAGS \n<b>Group : </b><code>{hmm.title}</code>"
+    if full is not None:
+        resalt +=f"\n<b>From : </b> 👤{mentionuser(full.first_name , full.id)}"
+    if messaget is not None:
+        resalt +=f"\n<b>Message type : </b>{messaget}"
+    else:
+        resalt +=f"\n<b>Message : </b>{event.message.message}"
+    resalt += f"\n<b>Message link: </b><a href = 'https://t.me/c/{hmm.id}/{event.message.id}'> link</a>"
+    await asyncio.sleep(3)
     if not event.is_private:
         await event.client.send_message(
             Config.PM_LOGGR_BOT_API_ID,
-            f"#TAGS \n<b>Group : </b><code>{hmm.title}</code>\
-                        \n<b>Message : </b><a href = 'https://t.me/c/{hmm.id}/{event.message.id}'> link</a>",
+            resalt,
             parse_mode="html",
             link_preview=False,
         )
