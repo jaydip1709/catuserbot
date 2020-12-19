@@ -6,7 +6,7 @@ from telethon.tl.functions.users import GetFullUserRequest
 
 import userbot.plugins.sql_helper.no_log_pms_sql as no_log_pms_sql
 
-from . import BOTLOG, BOTLOG_CHATID, LOGS, mentionuser
+from . import BOTLOG, BOTLOG_CHATID, LOGS, mentionuser, hmentionuser
 
 RECENT_USER = None
 NEWPM = None
@@ -68,15 +68,13 @@ async def log_tagged_messages(event):
         pass
     full = None
     try:
-        full = await event.client(GetFullUserRequest(event.message.from_id))
+        full = await event.client.get_entity(event.message.from_id))
     except:
         pass
     messaget = media_type(event)
     resalt = f"#TAGS \n<b>Group : </b><code>{hmm.title}</code>"
     if full is not None:
-        resalt += (
-            f"\n<b>From : </b> 👤{mentionuser(full.user.first_name , full.user.id)}"
-        )
+        resalt += f"\n<b>From : </b> 👤{hmentionuser(full.first_name , full.id)}"
     if messaget is not None:
         resalt += f"\n<b>Message type : </b>{messaget}"
     else:
