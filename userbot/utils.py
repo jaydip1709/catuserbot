@@ -33,7 +33,7 @@ def load_module(shortname):
         spec.loader.exec_module(mod)
         LOGS.info("Successfully imported " + shortname)
     else:
-        import ..utils
+        from . import utils
         from .helpers.utils import install_pip, reply_id 
         from .helpers.tools import media_type
         from .managers import edit_delete, edit_or_reply
