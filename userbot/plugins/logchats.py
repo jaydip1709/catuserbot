@@ -2,11 +2,10 @@
 import asyncio
 
 from telethon import events
-from telethon.tl.functions.users import GetFullUserRequest
 
 import userbot.plugins.sql_helper.no_log_pms_sql as no_log_pms_sql
 
-from . import BOTLOG, BOTLOG_CHATID, LOGS, mentionuser, hmentionuser
+from . import BOTLOG, BOTLOG_CHATID, LOGS, hmentionuser, mentionuser
 
 RECENT_USER = None
 NEWPM = None
