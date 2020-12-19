@@ -4,7 +4,7 @@ import os
 
 import requests
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import convert_toimage, convert_tosticker, reply_id
 
 

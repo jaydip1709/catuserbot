@@ -1,6 +1,6 @@
 from telethon.tl.types import ChannelParticipantsAdmins
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import reply_id
 
 

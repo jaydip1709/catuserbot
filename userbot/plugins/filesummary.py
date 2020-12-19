@@ -4,7 +4,7 @@ import time
 
 from prettytable import PrettyTable
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import htmlmentionuser, humanbytes, media_type
 
 TYPES = [

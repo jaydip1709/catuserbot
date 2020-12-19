@@ -2,7 +2,7 @@
 
 import asyncio
 
-from ..utils import admin_cmd, sudo_cmd
+
 
 
 @bot.on(admin_cmd(pattern=f"loading$", outgoing=True))

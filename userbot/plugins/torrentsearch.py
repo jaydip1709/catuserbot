@@ -11,7 +11,7 @@ import cfscrape  # https://github.com/Anorov/cloudflare-scrape
 import requests
 from bs4 import BeautifulSoup as bs
 
-from ..utils import admin_cmd, humanbytes
+from ..utils import  humanbytes
 
 
 def dogbin(magnets):

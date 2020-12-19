@@ -7,7 +7,7 @@
 
 import os
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import make_gif, runcmd
 
 

@@ -30,7 +30,7 @@ from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.types import DocumentAttributeFilename
 
-from ..utils import admin_cmd, sudo_cmd
+
 
 
 @bot.on(admin_cmd(pattern="frybot$"))

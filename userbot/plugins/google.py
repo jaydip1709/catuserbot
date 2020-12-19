@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from PIL import Image
 from search_engine_parser import GoogleSearch
 
-from ..utils import admin_cmd, errors_handler, sudo_cmd
+from ..utils import  errors_handler
 from . import BOTLOG, BOTLOG_CHATID, bot
 
 opener = urllib.request.build_opener()

@@ -10,7 +10,7 @@ from PIL import Image
 from telethon import functions, types
 
 from .. import LOGS
-from ..utils import admin_cmd, sudo_cmd
+
 from . import runcmd, take_screen_shot
 
 

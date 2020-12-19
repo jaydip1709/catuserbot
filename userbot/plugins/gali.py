@@ -1,7 +1,7 @@
 import asyncio
 import random
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import catmemes
 
 

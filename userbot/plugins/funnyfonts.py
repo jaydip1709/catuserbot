@@ -2,7 +2,7 @@
 import random
 import re
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import fonts
 
 

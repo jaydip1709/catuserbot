@@ -1,6 +1,6 @@
 import pyfiglet
 
-from ..utils import admin_cmd, sudo_cmd
+
 
 
 @bot.on(admin_cmd(pattern="figlet ?(.*)", outgoing=True))

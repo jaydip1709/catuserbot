@@ -3,7 +3,7 @@ import asyncio
 import requests
 from telethon import functions
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import ALIVE_NAME, CMD_LIST, SUDO_LIST, yaml_format
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"

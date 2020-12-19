@@ -23,7 +23,7 @@ from youtube_dl.utils import (
     XAttrMetadataError,
 )
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import hmention, progress, reply_id
 
 

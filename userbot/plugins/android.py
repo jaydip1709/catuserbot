@@ -10,7 +10,7 @@ import re
 from bs4 import BeautifulSoup
 from requests import get
 
-from ..utils import admin_cmd, sudo_cmd
+
 
 GITHUB = "https://github.com"
 DEVICES_DATA = (

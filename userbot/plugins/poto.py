@@ -27,7 +27,7 @@ Type `.poto` for get **All profile pics of that User**
 
 import asyncio
 
-from ..utils import admin_cmd, sudo_cmd
+
 
 name = "Profile Photos"
 

@@ -7,7 +7,7 @@ import time
 from subprocess import PIPE
 from subprocess import run as runapp
 
-from ..utils import admin_cmd, errors_handler, sudo_cmd
+from ..utils import  errors_handler
 from . import media_type, progress
 
 

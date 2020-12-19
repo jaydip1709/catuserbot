@@ -3,7 +3,7 @@ import io
 import sys
 import traceback
 
-from ..utils import admin_cmd, sudo_cmd
+
 
 
 @bot.on(admin_cmd(pattern="calc (.*)"))

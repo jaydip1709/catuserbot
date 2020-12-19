@@ -1,6 +1,6 @@
 from telethon.utils import pack_bot_file_id
 
-from ..utils import admin_cmd, sudo_cmd
+
 
 
 @bot.on(admin_cmd(pattern="(get_id|id)( (.*)|$)"))

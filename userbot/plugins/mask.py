@@ -10,7 +10,7 @@ from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import awooify, baguette, iphonex, lolice
 
 

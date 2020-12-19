@@ -1,7 +1,7 @@
 import asyncio
 from collections import deque
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import ALIVE_NAME
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"

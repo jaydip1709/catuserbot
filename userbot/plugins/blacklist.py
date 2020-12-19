@@ -13,7 +13,7 @@ from telethon import events
 
 import userbot.plugins.sql_helper.blacklist_sql as sql
 
-from ..utils import admin_cmd, sudo_cmd
+
 
 
 @bot.on(events.NewMessage(incoming=True))

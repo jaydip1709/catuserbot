@@ -8,7 +8,7 @@ import os
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import convert_tosticker, process
 
 

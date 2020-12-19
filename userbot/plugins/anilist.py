@@ -10,7 +10,7 @@ import re
 
 import requests
 
-from ..utils import admin_cmd, sudo_cmd
+
 from ..utils import time_formatter as t
 
 

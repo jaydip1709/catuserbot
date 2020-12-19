@@ -5,7 +5,7 @@ import os
 import time
 from datetime import datetime
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import media_type, progress, reply_id
 
 FF_MPEG_DOWN_LOAD_MEDIA_PATH = "./downloads/catuserbot.media.ffmpeg"

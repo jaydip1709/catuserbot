@@ -5,7 +5,7 @@ from datetime import datetime
 
 import speedtest
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import reply_id
 
 

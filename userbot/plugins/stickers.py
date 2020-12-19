@@ -22,7 +22,7 @@ from telethon.tl.types import (
     MessageMediaPhoto,
 )
 
-from ..utils import admin_cmd, sudo_cmd
+
 from . import media_type
 
 combot_stickers_url = "https://combot.org/telegram/stickers?q="

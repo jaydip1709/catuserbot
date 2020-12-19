@@ -1,6 +1,6 @@
 from telethon import functions
 
-from ..utils import admin_cmd, sudo_cmd
+
 
 
 @bot.on(admin_cmd(pattern="invite ?(.*)"))
