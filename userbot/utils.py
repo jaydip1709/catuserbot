@@ -15,7 +15,7 @@ from telethon import events
 from telethon.tl.functions.channels import GetParticipantRequest
 from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
 
-from . import CMD_LIST, LOAD_PLUG, LOGS, SUDO_LIST, bot,CMD_HELP
+from . import CMD_HELP, CMD_LIST, LOAD_PLUG, LOGS, SUDO_LIST, bot
 from .Config import Config
 from .helpers.exceptions import CancelProcess
 
@@ -31,9 +31,10 @@ def load_module(shortname):
         spec.loader.exec_module(mod)
         LOGS.info("Successfully imported " + shortname)
     else:
-        from .helpers.utils import install_pip, reply_id 
         from .helpers.tools import media_type
+        from .helpers.utils import install_pip, reply_id
         from .managers import edit_delete, edit_or_reply
+
         path = Path(f"userbot/plugins/{shortname}.py")
         name = "userbot.plugins.{}".format(shortname)
         spec = importlib.util.spec_from_file_location(name, path)
