@@ -75,7 +75,7 @@ async def add_snip(fltr):
             return await edit_or_reply(
                 fltr, f"Error in saving the given snip {keyword}"
             )
-        return await edit_or_reply(fltr, success.format(keyword , "updated", keyword))
+        return await edit_or_reply(fltr, success.format(keyword, "updated", keyword))
     return await edit_or_reply(fltr, success.format(keyword, "added", keyword))
 
 
