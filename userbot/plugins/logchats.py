@@ -2,10 +2,11 @@
 import asyncio
 
 from telethon import events
+from telethon.tl.functions.users import GetFullUserRequest
 
 import userbot.plugins.sql_helper.no_log_pms_sql as no_log_pms_sql
 
-from . import BOTLOG, BOTLOG_CHATID, LOGS, hmentionuser, mentionuser
+from . import BOTLOG, BOTLOG_CHATID, LOGS, mentionuser, htmlmentionuser
 
 RECENT_USER = None
 NEWPM = None
@@ -73,7 +74,7 @@ async def log_tagged_messages(event):
     messaget = media_type(event)
     resalt = f"#TAGS \n<b>Group : </b><code>{hmm.title}</code>"
     if full is not None:
-        resalt += f"\n<b>From : </b> 👤{hmentionuser(full.first_name , full.id)}"
+        resalt += f"\n<b>From : </b> 👤{htmlmentionuser(full.first_name , full.id)}"
     if messaget is not None:
         resalt += f"\n<b>Message type : </b>{messaget}"
     else:
