@@ -68,15 +68,15 @@ async def add_snip(fltr):
     elif fltr.reply_to_msg_id and not string:
         rep_msg = await fltr.get_reply_message()
         string = rep_msg.text
-    success = "Note {}  is successfully saved. Use` #{} `to get it"
+    success = "Note {} is successfully {}. Use` #{} `to get it"
     if add_note(keyword, string, msg_id) is False:
         rm_note(keyword)
         if add_note(keyword, string, msg_id) is False:
             return await edit_or_reply(
                 fltr, f"Error in saving the given snip {keyword}"
             )
-        return await edit_or_reply(fltr, success.format("updated", keyword))
-    return await edit_or_reply(fltr, success.format("added", keyword))
+        return await edit_or_reply(fltr, success.format(keyword , "updated", keyword))
+    return await edit_or_reply(fltr, success.format(keyword, "added", keyword))
 
 
 @bot.on(admin_cmd(pattern="snipl$"))
