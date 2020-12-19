@@ -5,7 +5,7 @@ from asyncio import sleep
 from telethon.errors import rpcbaseerrors
 
 from ..utils import admin_cmd, errors_handler, sudo_cmd
-from . import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from . import BOTLOG, BOTLOG_CHATID
 
 
 @bot.on(admin_cmd(outgoing=True, pattern="purge$"))

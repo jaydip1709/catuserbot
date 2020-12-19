@@ -6,7 +6,7 @@ Syntax: .ud Query"""
 import asyncurban
 from PyDictionary import PyDictionary
 
-from .. import CMD_HELP
+
 from ..utils import admin_cmd, sudo_cmd
 
 

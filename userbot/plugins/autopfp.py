@@ -11,7 +11,7 @@ import requests
 from telethon.tl import functions
 
 from ..utils import admin_cmd
-from . import CMD_HELP
+
 
 COLLECTION_STRING1 = [
     "awesome-batman-wallpapers",

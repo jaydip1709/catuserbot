@@ -30,7 +30,7 @@ from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.types import DocumentAttributeFilename
 
-from .. import CMD_HELP
+
 from ..utils import admin_cmd, sudo_cmd
 
 

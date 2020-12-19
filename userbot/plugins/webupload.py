@@ -9,7 +9,7 @@ import subprocess
 
 import requests
 
-from .. import CMD_HELP
+
 from ..utils import admin_cmd, sudo_cmd
 
 link_regex = re.compile(

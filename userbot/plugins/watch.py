@@ -6,7 +6,7 @@
 
 from justwatch import JustWatch, justwatchapi
 
-from .. import CMD_HELP
+
 from ..utils import admin_cmd, sudo_cmd
 
 justwatchapi.__dict__["HEADER"] = {

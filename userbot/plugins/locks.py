@@ -3,7 +3,7 @@ from telethon.tl.functions.messages import EditChatDefaultBannedRightsRequest
 from telethon.tl.types import ChatBannedRights
 
 from ..utils import admin_cmd, sudo_cmd
-from . import CMD_HELP
+
 from .sql_helper.locks_sql import get_locks, is_locked, update_lock
 
 

@@ -1,7 +1,7 @@
 import random
 
 from ..utils import admin_cmd, sudo_cmd
-from . import CMD_HELP, catmemes
+from . import  catmemes
 
 
 @bot.on(admin_cmd(pattern=f"gm$", outgoing=True))

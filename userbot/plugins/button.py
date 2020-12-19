@@ -6,7 +6,7 @@ import re
 
 from telethon import Button
 
-from .. import CMD_HELP
+
 from ..utils import admin_cmd, sudo_cmd
 
 # regex obtained from:

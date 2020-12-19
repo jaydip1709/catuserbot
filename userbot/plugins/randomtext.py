@@ -12,7 +12,7 @@ import random
 from asyncio import sleep
 
 from ..utils import admin_cmd, sudo_cmd
-from . import CMD_HELP
+
 
 
 @bot.on(admin_cmd(pattern=r"sing$", outgoing=True))

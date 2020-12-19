@@ -2,7 +2,7 @@
 import io
 
 from ..utils import admin_cmd, sudo_cmd
-from . import CMD_HELP, parse_pre, reply_id, yaml_format
+from . import  parse_pre, reply_id, yaml_format
 
 
 @bot.on(admin_cmd(pattern="json$"))

@@ -5,7 +5,7 @@ import json
 import requests
 
 from ..utils import admin_cmd, sudo_cmd
-from . import CMD_HELP
+
 
 
 @bot.on(admin_cmd(pattern="ezanvakti (.*)", outgoing=True))

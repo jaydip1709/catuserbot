@@ -9,7 +9,7 @@ import os
 from asyncio import create_subprocess_exec as asyncrunapp
 from asyncio.subprocess import PIPE as asyncPIPE
 
-from .. import CMD_HELP
+
 from ..utils import admin_cmd, sudo_cmd
 
 if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):

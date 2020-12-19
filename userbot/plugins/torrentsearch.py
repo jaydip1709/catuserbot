@@ -12,7 +12,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 from ..utils import admin_cmd, humanbytes
-from . import CMD_HELP
+
 
 
 def dogbin(magnets):
