@@ -74,7 +74,7 @@ async def log_tagged_messages(event):
     messaget = media_type(event)
     resalt = f"#TAGS \n<b>Group : </b><code>{hmm.title}</code>"
     if full is not None:
-        resalt += f"\n<b>From : </b> 👤{mentionuser(full.first_name , full.id)}"
+        resalt += f"\n<b>From : </b> 👤{mentionuser(full.user.first_name , full.user.id)}"
     if messaget is not None:
         resalt += f"\n<b>Message type : </b>{messaget}"
     else:
