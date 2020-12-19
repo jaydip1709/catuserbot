@@ -5,7 +5,7 @@ from telethon import events
 
 import userbot.plugins.sql_helper.no_log_pms_sql as no_log_pms_sql
 
-from ..utils import admin_cmd
+
 from . import BOTLOG, BOTLOG_CHATID, LOGS, mentionuser
 
 RECENT_USER = None
