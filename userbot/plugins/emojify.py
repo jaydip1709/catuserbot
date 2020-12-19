@@ -6,7 +6,6 @@ Userbot plugin for CatUserbot
 import emoji
 
 from ..utils import admin_cmd, sudo_cmd
-
 from . import fonts as emojify
 
 

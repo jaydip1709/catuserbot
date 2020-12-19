@@ -10,7 +10,6 @@ from telethon import functions, types, utils
 
 from ..utils import admin_cmd, sudo_cmd
 
-
 BASE_URL = "https://headp.at/pats/{}"
 PAT_IMAGE = "pat.webp"
 

@@ -3,7 +3,6 @@ from asyncio import sleep
 from ..utils import admin_cmd, sudo_cmd
 
 
-
 @bot.on(admin_cmd(pattern="sdm (\d*) (.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="sdm (\d*) (.*)", allow_sudo=True))
 async def selfdestruct(destroy):

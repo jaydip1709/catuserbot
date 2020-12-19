@@ -5,7 +5,7 @@ import os
 import requests
 
 from ..utils import admin_cmd, sudo_cmd
-from . import  convert_toimage, convert_tosticker, reply_id
+from . import convert_toimage, convert_tosticker, reply_id
 
 
 @bot.on(admin_cmd(pattern="(rmbg|srmbg) ?(.*)"))

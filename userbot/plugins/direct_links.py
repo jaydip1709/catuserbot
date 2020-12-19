@@ -19,7 +19,6 @@ from humanize import naturalsize
 from ..utils import admin_cmd, sudo_cmd
 
 
-
 @bot.on(admin_cmd(outgoing=True, pattern=r"direct(?: |$)([\s\S]*)"))
 @bot.on(sudo_cmd(allow_sudo=True, pattern=r"direct(?: |$)([\s\S]*)"))
 async def direct_link_generator(request):

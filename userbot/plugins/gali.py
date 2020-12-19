@@ -2,7 +2,7 @@ import asyncio
 import random
 
 from ..utils import admin_cmd, sudo_cmd
-from . import  catmemes
+from . import catmemes
 
 
 @bot.on(admin_cmd(outgoing=True, pattern="abuse$"))

@@ -5,7 +5,7 @@ import requests
 from github import Github
 
 from ..utils import admin_cmd, sudo_cmd
-from . import  reply_id
+from . import reply_id
 
 GIT_TEMP_DIR = "./temp/"
 

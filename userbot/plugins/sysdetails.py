@@ -9,7 +9,7 @@ import psutil
 from telethon import __version__
 
 from ..utils import admin_cmd, sudo_cmd
-from . import ALIVE_NAME,  runcmd
+from . import ALIVE_NAME, runcmd
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"

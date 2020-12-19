@@ -10,7 +10,6 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from ..utils import admin_cmd, sudo_cmd
 
 
-
 def progress(current, total):
     logger.info(
         "Downloaded {} of {}\nCompleted {}".format(

@@ -10,7 +10,7 @@ from userbot.plugins.sql_helper.welcome_sql import (
 )
 
 from ..utils import admin_cmd, sudo_cmd
-from . import BOTLOG_CHATID,  LOGS
+from . import BOTLOG_CHATID, LOGS
 
 
 @bot.on(events.ChatAction)

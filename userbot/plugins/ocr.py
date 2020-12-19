@@ -10,7 +10,6 @@ import requests
 
 from ..utils import admin_cmd, sudo_cmd
 
-
 OCR_SPACE_API_KEY = Config.OCR_SPACE_API_KEY
 
 

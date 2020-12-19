@@ -3,7 +3,6 @@ import nekos
 from ..utils import admin_cmd, sudo_cmd
 
 
-
 @bot.on(admin_cmd(pattern="tcat$"))
 @bot.on(sudo_cmd(pattern="tcat$", allow_sudo=True))
 async def hmm(cat):

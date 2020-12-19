@@ -4,7 +4,6 @@ from validators.url import url
 from ..utils import admin_cmd, sudo_cmd
 
 
-
 @bot.on(admin_cmd(pattern="dns( (.*)|$)"))
 @bot.on(sudo_cmd(pattern="dns( (.*)|$)", allow_sudo=True))
 async def _(event):

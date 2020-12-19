@@ -1,6 +1,5 @@
 import pyfiglet
 
-
 from ..utils import admin_cmd, sudo_cmd
 
 

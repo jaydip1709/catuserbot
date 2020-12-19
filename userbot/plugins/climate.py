@@ -17,7 +17,6 @@ from pytz import timezone as tz
 
 from ..utils import admin_cmd, errors_handler, sudo_cmd
 
-
 # ===== CONSTANT =====
 DEFCITY = "Delhi"
 # ====================

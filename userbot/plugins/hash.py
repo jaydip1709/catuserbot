@@ -8,7 +8,7 @@ from subprocess import PIPE
 from subprocess import run as runapp
 
 from ..utils import admin_cmd, errors_handler, sudo_cmd
-from . import  media_type, progress
+from . import media_type, progress
 
 
 @bot.on(admin_cmd(outgoing=True, pattern="hash (.*)"))

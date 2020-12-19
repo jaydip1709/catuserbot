@@ -8,7 +8,7 @@ import time
 from pathlib import Path
 
 from ..utils import admin_cmd, humanbytes, sudo_cmd
-from . import  runcmd
+from . import runcmd
 
 
 @bot.on(admin_cmd(pattern="ls ?(.*)"))

@@ -11,7 +11,6 @@ import textwrap
 from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.types import InputMessagesFilterDocument
 
-
 from ..utils import admin_cmd, sudo_cmd
 from . import deEmojify, waifutxt
 

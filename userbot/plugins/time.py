@@ -10,7 +10,6 @@ from pytz import timezone as tz
 
 from ..utils import admin_cmd, sudo_cmd
 
-
 FONT_FILE_TO_USE = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 
 LOCATION = Config.TZ

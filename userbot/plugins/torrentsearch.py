@@ -14,7 +14,6 @@ from bs4 import BeautifulSoup as bs
 from ..utils import admin_cmd, humanbytes
 
 
-
 def dogbin(magnets):
     counter = 0
     urls = []

@@ -3,7 +3,6 @@ from telethon.tl.types import ChannelParticipantsAdmins
 from ..utils import admin_cmd, sudo_cmd
 
 
-
 @bot.on(admin_cmd(pattern="join$"))
 @bot.on(sudo_cmd(pattern="join$", allow_sudo=True))
 async def _(event):

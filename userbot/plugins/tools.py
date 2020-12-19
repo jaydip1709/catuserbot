@@ -17,7 +17,6 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from ..utils import admin_cmd, sudo_cmd
 
 
-
 @bot.on(admin_cmd(pattern="scan ?(.*)"))
 @bot.on(sudo_cmd(pattern="scan ?(.*)", allow_sudo=True))
 async def _(event):

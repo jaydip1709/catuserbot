@@ -1,7 +1,7 @@
 import random
 
 from ..utils import admin_cmd, sudo_cmd
-from . import  fonts
+from . import fonts
 
 
 @bot.on(admin_cmd(pattern="egyptf(?: |$)(.*)"))

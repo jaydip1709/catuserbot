@@ -9,7 +9,6 @@ from telethon.tl.types import Channel, Chat, User
 from ..utils import admin_cmd, sudo_cmd
 
 
-
 @bot.on(admin_cmd(pattern="stat$"))
 @bot.on(sudo_cmd(pattern="stat$", allow_sudo=True))
 async def stats(

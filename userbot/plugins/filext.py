@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup
 from ..utils import admin_cmd, sudo_cmd
 
 
-
 @bot.on(admin_cmd(pattern="filext (.*)"))
 @bot.on(sudo_cmd(pattern="filext (.*)", allow_sudo=True))
 async def _(event):

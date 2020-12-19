@@ -8,7 +8,6 @@ import random
 
 from ..utils import admin_cmd, sudo_cmd
 from . import (
-    
     LOGS,
     add_frame,
     asciiart,
