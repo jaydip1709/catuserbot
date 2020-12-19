@@ -140,14 +140,10 @@ async def _(event):
 
 
 @bot.on(admin_cmd(pattern="env$"))
-@bot.on(sudo_cmd(pattern="env$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
-    #    dirname = event.pattern_match.group(1)
-    #    tempdir = "localdir"
     cmd = "env"
-    #    if dirname == tempdir:
     eply_to_id = event.message.id
     if event.reply_to_msg_id:
         eply_to_id = event.reply_to_msg_id
