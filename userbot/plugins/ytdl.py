@@ -3,6 +3,7 @@
 
 import asyncio
 import os
+import re
 import time
 from datetime import datetime
 from html import unescape
@@ -23,14 +24,22 @@ from youtube_dl.utils import (
     XAttrMetadataError,
 )
 
-from . import hmention, progress, reply_id
+from ..utils import admin_cmd, sudo_cmd
+from . import CMD_HELP, hmention, progress, reply_id
 
 
-@bot.on(admin_cmd(pattern="yt(a|v) (.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="yt(a|v) (.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern="yt(a|v)(?: |$)(.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern="yt(a|v)(?: |$)(.*)", allow_sudo=True))
 async def download_video(v_url):
     """ For .ytdl command, download media from YouTube and many other sites. """
     url = v_url.pattern_match.group(2)
+    if not url:
+        rmsg = await v_url.get_reply_message()
+        myString = rmsg.text
+        url = re.search("(?P<url>https?://[^\s]+)", myString).group("url")
+    if not url:
+        await edit_or_reply(v_url, "What I am Supposed to find? Give link")
+        return
     ytype = v_url.pattern_match.group(1).lower()
     v_url = await edit_or_reply(v_url, "`Preparing to download...`")
     reply_to_id = await reply_id(v_url)
@@ -229,7 +238,7 @@ async def youtube_search(
 async def kakashi(event):
     if event.fwd_from:
         return
-    chat = "@allsaverbot"
+    chat = "@instasavegrambot"
     link = event.pattern_match.group(1)
     if "www.instagram.com" not in link:
         await edit_or_reply(
@@ -243,13 +252,13 @@ async def kakashi(event):
             msg_start = await conv.send_message("/start")
             response = await conv.get_response()
             msg = await conv.send_message(link)
-            details = await conv.get_response()
-            await conv.get_response()
-            await conv.get_response()
             video = await conv.get_response()
+            # await conv.get_response()
+            # await conv.get_response()
+            details = await conv.get_response()
             await event.client.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
-            await catevent.edit("**Error:** `unblock` @allsaverbot `and retry!`")
+            await catevent.edit("**Error:** `unblock` @instasavegrambot `and retry!`")
             return
         await catevent.delete()
         cat = await event.client.send_file(
@@ -263,9 +272,8 @@ async def kakashi(event):
             parse_mode="html",
         )
     await event.client.delete_messages(
-        conv.chat_id, [msg_start.id, response.id, msg.id, details.id, video.id]
+        conv.chat_id, [msg_start.id, response.id, msg.id, video.id, details.id]
     )
-
 
 CMD_HELP.update(
     {
