@@ -1,22 +1,26 @@
 import asyncio
+import difflib
 import shlex
 from typing import Tuple
-import difflib
 
-async def lines_differnce(file1 , file2):
+
+async def lines_differnce(file1, file2):
     with open(file1) as f1:
         lines1 = f1.readlines()
-        lines1 = [line.rstrip('\n') for line in lines1]
+        lines1 = [line.rstrip("\n") for line in lines1]
     with open(file2) as f2:
         lines2 = f2.readlines()
-        lines2 = [line.rstrip('\n') for line in lines2]
-    diff = difflib.unified_diff(lines1, lines2, fromfile=file1, tofile=file2, lineterm='',n=0)
+        lines2 = [line.rstrip("\n") for line in lines2]
+    diff = difflib.unified_diff(
+        lines1, lines2, fromfile=file1, tofile=file2, lineterm="", n=0
+    )
     lines = list(diff)[2:]
-    added = [line[1:] for line in lines if line[0] == '+']
-    removed = [line[1:] for line in lines if line[0] == '-']
+    added = [line[1:] for line in lines if line[0] == "+"]
+    removed = [line[1:] for line in lines if line[0] == "-"]
     additions = [i for i in added if i not in removed]
     removedt = [i for i in removed if i not in added]
     return additions, removedt
+
 
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
     args = shlex.split(cmd)
@@ -33,7 +37,7 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
 
 
 async def update_requirements():
-    a,r = await lines_differnce("requirements.txt" , "cat_ub/requirements.txt")
+    a, r = await lines_differnce("requirements.txt", "cat_ub/requirements.txt")
     try:
         for i in a:
             await runcmd(f"pip install {i}")
