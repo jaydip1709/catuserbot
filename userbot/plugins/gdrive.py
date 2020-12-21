@@ -816,7 +816,7 @@ async def share(service, event, url):
     await event.edit("`Loading GDrive Share...`")
     file_id, _ = await get_file_id(url)
     try:
-        result = await get_output(file_id)
+        result = await get_output(service , file_id)
     except Exception as e:
         await edit_delete(event, f"str({e})", parse_mode=parse_pre)
         return
