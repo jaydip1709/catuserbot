@@ -1,5 +1,3 @@
-# ported from ProjectBish by @sandy1709
-
 # Catuserbot Google Drive managers  ported from Projectbish and added extra things by @mrconfused
 
 import asyncio
@@ -25,7 +23,7 @@ from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 from telethon import events
 
-from ..utils import humanbytes, time_formatter
+from ..utils import humanbytes, time_formatter,admin_cmd, sudo_cmd
 from . import (
     BOTLOG_CHATID,
     G_DRIVE_CLIENT_ID,
@@ -36,6 +34,7 @@ from . import (
     TMP_DOWNLOAD_DIRECTORY,
     CancelProcess,
     progress,
+    CMD_HELP
 )
 from .sql_helper import google_drive_sql as helper
 
@@ -84,7 +83,7 @@ if __ is not None:
 logger = logging.getLogger("googleapiclient.discovery")
 logger.setLevel(logging.ERROR)
 
-thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
+thumb_image_path = os.path.join(Config.TMP_DOWNLOAD_DIRECTORY ,"/thumb_image.jpg")
 # =========================================================== #
 #                                                             #
 # =========================================================== #
@@ -528,12 +527,8 @@ async def gdrive_download(event, gdrive, service, uri):
                         f"`{humanbytes(downloaded)} of {humanbytes(file_size)}`"
                         f" @ {humanbytes(speed)}`\n"
                         f"**ETA :** {time_formatter(eta)}"
-                    )
-                    if (
-                        round(diff % 15.00) == 0
-                        and (display_message != current_message)
-                        or (downloaded == file_size)
-                    ):
+                            )
+                    if display_message != current_message:
                         await gdrive.edit(current_message)
                         display_message = current_message
                     files.write(chunk)
@@ -573,12 +568,8 @@ async def gdrive_download(event, gdrive, service, uri):
                         f"`{humanbytes(downloaded)} of {humanbytes(file_size)}"
                         f" @ {humanbytes(speed)}\n`"
                         f"**ETA :** {time_formatter(eta)}"
-                    )
-                    if (
-                        round(diff % 15.00) == 0
-                        and (display_message != current_message)
-                        or (downloaded == file_size)
-                    ):
+                            )
+                    if display_message != current_message:
                         await gdrive.edit(current_message)
                         display_message = current_message
     await gdrive.edit(
@@ -1472,113 +1463,6 @@ async def check_progress_for_dl(event, gid, previous):
                 )
 
 
-async def download_file_from_google_drive(gid):
-    URL = "https://docs.google.com/uc?export=download"
-
-    session = requests.Session()
-
-    response = session.get(URL, params={"id": gid}, stream=True)
-    token = await get_confirm_token(response)
-    if token:
-        params = {"id": gid, "confirm": token}
-        response = session.get(URL, params=params, stream=True)
-
-    headers = response.headers
-    content = headers["Content-Disposition"]
-    destination = await get_file_name(content)
-    destination = os.path.join(Config.TMP_DOWNLOAD_DIRECTORY, destination)
-    file_name = await save_response_content(response, destination)
-    return file_name
-
-
-async def get_confirm_token(response):
-    for key, value in response.cookies.items():
-        if key.startswith("download_warning"):
-            return value
-
-    return None
-
-
-async def save_response_content(response, destination):
-    with open(destination, "wb") as f:
-        CHUNK_SIZE = 32768
-        for chunk in response.iter_content(CHUNK_SIZE):
-            if chunk:  # filter out keep-alive new chunks
-                f.write(chunk)
-    return destination
-
-
-async def get_id(link):  # Extract File Id from G-Drive Link
-    file_id = ""
-    c_append = False
-    if link[1:33] == "https://drive.google.com/file/d/":
-        link = link[33:]
-        fid = ""
-        for c in link:
-            if c == "/":
-                break
-            fid += c
-        return fid
-    for c in link:
-        if c == "=":
-            c_append = True
-        if c == "&":
-            break
-        if c_append:
-            file_id += c
-    file_id = file_id[1:]
-    return file_id
-
-
-async def get_file_name(content):
-    file_name = ""
-    c_append = False
-    for c in str(content):
-        if c == ";":
-            c_append = False
-        elif c == '"':
-            c_append = True
-        if c_append:
-            file_name += c
-    file_name = file_name.replace('"', "")
-    print("File Name: " + str(file_name))
-    return file_name
-
-
-@bot.on(admin_cmd(pattern="gdl ?(-u)? (.*)", command="(gdl|gdl -u)", outgoing=True))
-@bot.on(sudo_cmd(pattern="gdl ?(-u)? (.*)", command="(gdl|gdl -u)", allow_sudo=True))
-async def g_download(event):
-    if event.fwd_from:
-        return
-    cmd = event.pattern_match.group(1)
-    drive_link = event.pattern_match.group(2)
-    file_id = await get_id(drive_link)
-    catevent = await edit_or_reply(event, "Downloading Requested File from G-Drive...")
-    file_name = await download_file_from_google_drive(file_id)
-    if os.path.exists(thumb_image_path):
-        thumb = thumb_image_path
-    if not cmd:
-        await catevent.edit("**File Downloaded.\nName : **`" + str(file_name) + "`")
-    else:
-        c_time = time.time()
-        await event.client.send_file(
-            event.chat_id,
-            file_name,
-            caption=f"**File Name : **`{os.path.basename(file_name)}`",
-            thumb=thumb,
-            force_document=False,
-            supports_streaming=True,
-            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(d, t, catevent, c_time, "Uploading...", file_name)
-            ),
-        )
-        os.remove(file_name)
-        await edit_delete(
-            catevent,
-            "**File Downloaded and uploaded.\nName : **`" + str(file_name) + "`",
-            5,
-        )
-
 
 @bot.on(
     admin_cmd(pattern="gdown ?(-u)? (.*)", command="(gdown|gdown -u)", outgoing=True)
@@ -1592,12 +1476,13 @@ async def g_download(event):
     service = await create_app(event)
     if service is False:
         return None
+    thumb = None
     cmd = event.pattern_match.group(1)
     drive_link = event.pattern_match.group(2)
-    catevent = await edit_or_reply(event, "Downloading Requested File from G-Drive...")
+    catevent = await edit_or_reply(event, "`Downloading Requested File from G-Drive...`")
     file_name, catprocess = await gdrive_download(event, catevent, service, drive_link)
     if catprocess is not None:
-        return await edit_delete(catevent, file_name, parse_mode=parse_pre)
+        return await edit_delete(catevent, file_name)
     if os.path.exists(thumb_image_path):
         thumb = thumb_image_path
     if not cmd:
