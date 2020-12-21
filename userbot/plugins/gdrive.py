@@ -425,7 +425,7 @@ async def copy_dir(service, file_id, dir_id):
     return new_id
 
 
-async def gdrive_download(gdrive, service, uri):
+async def gdrive_download(event , gdrive, service, uri):
     reply = ""
     global is_cancelled
     if "&export=download" in uri:
@@ -482,7 +482,7 @@ async def gdrive_download(gdrive, service, uri):
                             "**Status : **BAD - failed to download.\n"
                             f"**Reason : **`{error}`"
                         )
-                    return reply
+                    return reply , "Error"
                 download = session.get(export, stream=True)
                 file_size = human_to_bytes(
                     page.find("span", {"class": "uc-name-size"})
@@ -492,7 +492,7 @@ async def gdrive_download(gdrive, service, uri):
             else:
                 file_size = int(download.headers["Content-Length"])
             file_name = re.search(
-                'filename="(.)"', download.headers["Content-Disposition"]
+                "filename='(.)'", download.headers["Content-Disposition"]
             ).group(1)
             file_path = os.path.join(TMP_DOWNLOAD_DIRECTORY, file_name)
             with io.FileIO(file_path, "wb") as files:
@@ -504,10 +504,8 @@ async def gdrive_download(gdrive, service, uri):
                 for chunk in download.iter_content(CHUNK_SIZE):
                     if is_cancelled:
                         raise CancelProcess
-
                     if not chunk:
                         break
-
                     diff = time.time() - current_time
                     if first:
                         downloaded = len(chunk)
@@ -542,8 +540,7 @@ async def gdrive_download(gdrive, service, uri):
         file_name = file.get("name")
         mimeType = file.get("mimeType")
         if mimeType == "application/vnd.google-apps.folder":
-            await gdrive.edit("Aborting, folder download not support...")
-            return False
+            return "Aborting, folder download not support..." , "Error"
         file_path = os.path.join(TMP_DOWNLOAD_DIRECTORY, file_name)
         request = service.files().get_media(fileId=file_Id, supportsAllDrives=True)
         with io.FileIO(file_path, "wb") as df:
@@ -590,6 +587,7 @@ async def gdrive_download(gdrive, service, uri):
         f"**Path   : **`{file_path}`\n"
         "**Status : **OK - Successfully downloaded."
     )
+    return file_path , None
 
 
 async def download_gdrive(gdrive, service, uri):
@@ -1579,6 +1577,41 @@ async def g_download(event):
             "**File Downloaded and uploaded.\nName : **`" + str(file_name) + "`",
             5,
         )
+
+@bot.on(admin_cmd(pattern="gdown ?(-u)? (.*)", command="(gdown|gdown -u)", outgoing=True))
+@bot.on(sudo_cmd(pattern="gdown ?(-u)? (.*)", command="(gdown|gdown -u)", allow_sudo=True))
+async def g_download(event):
+    if event.fwd_from:
+        return
+    cmd = event.pattern_match.group(1)
+    drive_link = event.pattern_match.group(2)
+    catevent = await edit_or_reply(event, "Downloading Requested File from G-Drive...")
+    file_name , catprocess = await gdrive_download(event, catevent, service , drive_link)
+    if catprocess is not None:
+        await edit_delete(catevent, catprocess , parse_mode = parse_pre)
+    if os.path.exists(thumb_image_path):
+        thumb = thumb_image_path
+    if not cmd:
+        await catevent.edit("**File Downloaded.\nName : **`" + str(file_name) + "`")
+    else:
+        c_time = time.time()
+        await event.client.send_file(
+            event.chat_id,
+            file_name,
+            caption=f"**File Name : **`{os.path.basename(file_name)}`",
+            thumb=thumb,
+            force_document=False,
+            supports_streaming=True,
+            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+                progress(d, t, catevent, c_time, "Uploading...", file_name)
+            ),
+        )
+        os.remove(file_name)
+        await edit_delete(
+            catevent,
+            "**File Downloaded and uploaded.\nName : **`" + str(file_name) + "`",
+            5,
+        )        
 
 
 CMD_HELP.update(
