@@ -97,7 +97,11 @@ GDRIVE_ID = re.compile(
 async def generate_credentials(gdrive):
     """ - Only generate once for long run - """
     if not BOTLOG:
-        await edit_delete(gdrive,"for authencation you need to set PRIVATE_GROUP_BOT_API_ID in heroku" , time=10)
+        await edit_delete(
+            gdrive,
+            "for authencation you need to set PRIVATE_GROUP_BOT_API_ID in heroku",
+            time=10,
+        )
     hmm = gdrive.client.uid
     if helper.get_credentials(str(hmm)) is not None:
         await edit_or_reply(gdrive, "`You already authorized token...`")
@@ -139,7 +143,9 @@ async def generate_credentials(gdrive):
         configs, SCOPES, redirect_uri=REDIRECT_URI
     )
     auth_url, _ = flow.authorization_url(access_type="offline", prompt="consent")
-    msg = await gdrive.respond("`Go to your Private log group to authenticate token...`")
+    msg = await gdrive.respond(
+        "`Go to your Private log group to authenticate token...`"
+    )
     async with gdrive.client.conversation(BOTLOG_CHATID) as conv:
         url_msg = await conv.send_message(
             "Please go to this URL:\n" f"{auth_url}\nauthorize then reply the code"
@@ -1255,13 +1261,8 @@ async def check_progress_for_dl(event, gid, previous):
                     percentage = int(file.progress)
                     downloaded = percentage * int(file.total_length) / 100
                     prog_str = "**Downloading : **`[{0}{1}] {2}`".format(
-                        "".join(
-                            "▰" for i in range(math.floor(percentage / 10))
-                        ),
-                        "".join(
-                            "▱"
-                            for i in range(10 - math.floor(percentage / 10))
-                        ),
+                        "".join("▰" for i in range(math.floor(percentage / 10))),
+                        "".join("▱" for i in range(10 - math.floor(percentage / 10))),
                         file.progress_string(),
                     )
 
@@ -1292,14 +1293,14 @@ async def check_progress_for_dl(event, gid, previous):
                 )
                 return file.name
         except Exception as e:
-            if ' not found' in str(e) or "'file'" in str(e):
-                await event.edit('Download Canceled :\n`{}`'.format(file.name))
+            if " not found" in str(e) or "'file'" in str(e):
+                await event.edit("Download Canceled :\n`{}`".format(file.name))
                 await asyncio.sleep(2.5)
                 return await event.delete()
-            elif ' depth exceeded' in str(e):
+            elif " depth exceeded" in str(e):
                 file.remove(force=True)
                 await event.edit(
-                    'Download Auto Canceled :\n`{}`\nYour Torrent/Link is Dead.'.format(
+                    "Download Auto Canceled :\n`{}`\nYour Torrent/Link is Dead.".format(
                         file.name
                     )
                 )
