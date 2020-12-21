@@ -23,7 +23,7 @@ from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 from telethon import events
 
-from ..utils import admin_cmd, humanbytes, sudo_cmd, time_formatter
+from ..utils import admin_cmd, sudo_cmd
 from . import (
     BOTLOG_CHATID,
     CMD_HELP,
@@ -35,6 +35,8 @@ from . import (
     TMP_DOWNLOAD_DIRECTORY,
     CancelProcess,
     progress,
+    time_formatter,
+    humanbytes
 )
 from .sql_helper import google_drive_sql as helper
 
@@ -516,8 +518,8 @@ async def gdrive_download(event, gdrive, service, uri):
                     speed = round(downloaded / diff, 2)
                     eta = round((file_size - downloaded) / speed)
                     prog_str = "`[{0}{1}] {2}%`".format(
-                        "".join("●" for i in range(math.floor(percentage / 10))),
-                        "".join("○" for i in range(10 - math.floor(percentage / 10))),
+                        "".join("▰" for i in range(math.floor(percentage / 10))),
+                        "".join("▱" for i in range(10 - math.floor(percentage / 10))),
                         round(percentage, 2),
                     )
                     current_message = (
@@ -557,8 +559,8 @@ async def gdrive_download(event, gdrive, service, uri):
                     speed = round(downloaded / diff, 2)
                     eta = round((file_size - downloaded) / speed)
                     prog_str = "`[{0}{1}] {2}%`".format(
-                        "".join("●" for i in range(math.floor(percentage / 10))),
-                        "".join("○" for i in range(10 - math.floor(percentage / 10))),
+                        "".join("▰" for i in range(math.floor(percentage / 10))),
+                        "".join("▱" for i in range(10 - math.floor(percentage / 10))),
                         round(percentage, 2),
                     )
                     current_message = (
