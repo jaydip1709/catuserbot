@@ -1574,8 +1574,9 @@ async def g_download(event):
             5,
         )
 
-@bot.on(admin_cmd(pattern="gshare (.*)", command = "gshare"))
-@bot.on(sudo_cmd(pattern="gshare (.*)", command = "gshare",allow_Sudo=True))
+
+@bot.on(admin_cmd(pattern="gshare (.*)", command="gshare"))
+@bot.on(sudo_cmd(pattern="gshare (.*)", command="gshare", allow_Sudo=True))
 async def gshare(event):
     if event.fwd_from:
         return
@@ -1583,10 +1584,10 @@ async def gshare(event):
     if service is False:
         return None
     input_str = event.pattern_match.group(1)
-    catevent = await edit_or_reply(event,"`Creating sharable link...`")
+    catevent = await edit_or_reply(event, "`Creating sharable link...`")
     await asyncio.sleep(2)
-    await share(service , catevent,input_str)
-            
+    await share(service, catevent, input_str)
+
 
 CMD_HELP.update(
     {
