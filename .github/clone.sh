@@ -39,8 +39,8 @@ else
     mv cat_ub/.git .
     mv cat_ub/sample_config.py .
     mv cat_ub/requirements.txt .
-    rm -rf cat_ub
     python ./.github/update.py
+    rm -rf cat_ub
 fi
 
 FILE=/app/bin/
