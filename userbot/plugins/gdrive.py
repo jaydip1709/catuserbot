@@ -1576,7 +1576,7 @@ async def g_download(event):
 
 
 @bot.on(admin_cmd(pattern="gshare (.*)", command="gshare"))
-@bot.on(sudo_cmd(pattern="gshare (.*)", command="gshare", allow_Sudo=True))
+@bot.on(sudo_cmd(pattern="gshare (.*)", command="gshare", allow_sudo=True))
 async def gshare(event):
     if event.fwd_from:
         return
