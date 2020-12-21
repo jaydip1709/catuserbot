@@ -67,4 +67,4 @@ vcsi
 wand
 wikipedia
 youtube_dl > 2020.11.12
-binod
+covid-india
