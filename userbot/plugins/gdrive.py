@@ -424,7 +424,170 @@ async def copy_dir(service, file_id, dir_id):
             new_id = dir_id
     return new_id
 
+async def gdrive_download(gdrive, service, uri):
+    reply = ''
+    global is_cancelled
+    if "&export=download" in uri:
+        uri = uri.split("&export=download")[0]
+    elif "file/d/" in uri and "/view" in uri:
+        uri = uri.split("?usp=drivesdk")[0]
+    try:
+        file_Id = uri.split("uc?id=")[1]
+    except IndexError:
+        try:
+            file_Id = uri.split("open?id=")[1]
+        except IndexError:  
+            if "/view" in uri:
+                file_Id = uri.split("/")[-2]
+            else:
+                try:
+                    file_Id = uri.split(
+                        "uc?export=download&confirm=")[1].split("id=")[1]
+                except IndexError:
+                    file_Id = uri
+    try:
+        file = await get_information(service, file_Id)
+    except HttpError as e:
+        if '404' in str(e):
+            drive = 'https://drive.google.com'
+            url = f'{drive}/uc?export=download&id={file_Id}'
+            session = requests.session()
+            download = session.get(url, stream=True)
+            try:
+                download.headers['Content-Disposition']
+            except KeyError:
+                page = BeautifulSoup(download.content, 'lxml')
+                try:
+                    export = drive + page.find('a', {
+                        'id': 'uc-download-link'
+                    }).get('href')
+                except AttributeError:
+                    try:
+                        error = (page.find('p', {
+                            'class': 'uc-error-caption'
+                        }).text + '\n' +
+                                 page.find('p', {
+                                     'class': 'uc-error-subcaption'
+                                 }).text)
+                    except Exception:
+                        reply += ("**[FILE - ERROR]**\n\n"
+                                  "**Status : **BAD - failed to download.\n"
+                                  "**Reason : **uncaught err.")
+                    else:
+                        reply += ("**[FILE - ERROR]**\n\n"
+                                  "**Status : **BAD - failed to download.\n"
+                                  f"**Reason : **`{error}`")
+                    return reply
+                download = session.get(export, stream=True)
+                file_size = human_to_bytes(
+                    page.find('span', {
+                        'class': 'uc-name-size'
+                    }).text.split()[-1].strip('()'))
+            else:
+                file_size = int(download.headers['Content-Length'])
+            file_name = re.search(
+                'filename="(.)"',
+                download.headers["Content-Disposition"]).group(1)
+            file_path = TEMP_DOWNLOAD_DIRECTORY + file_name
+            with io.FileIO(file_path, 'wb') as files:
+                CHUNK_SIZE = None
+                current_time = time.time()
+                display_message = None
+                first = True
+                is_cancelled = False
+                for chunk in download.iter_content(CHUNK_SIZE):
+                    if is_cancelled:
+                        raise CancelProcess
 
+                    if not chunk:
+                        break
+
+                    diff = time.time() - current_time
+                    if first:
+                        downloaded = len(chunk)
+                        first = False
+                    else:
+                        downloaded += len(chunk)
+                    percentage = downloaded / file_size  100
+                    speed = round(downloaded / diff, 2)
+                    eta = round((file_size - downloaded) / speed)
+                    prog_str = "`[{0}{1}] {2}%`".format(
+                        "".join(
+                            "●" for i in range(math.floor(percentage / 10))
+                        ),
+                        "".join(
+                            "○"
+                            for i in range(10 - math.floor(percentage / 10))
+                        ),
+                        round(percentage, 2),
+                    )
+                    current_message = (
+                        "**File downloading**\n\n"
+                        f"**Name : **`{file_name}`\n"
+                        f"**Status**\n{prog_str}\n"
+                        f"`{humanbytes(downloaded)} of {humanbytes(file_size)}`"
+                        f" @ {humanbytes(speed)}`\n"
+                        f"**ETA :** {time_formatter(eta)}")
+                    if round(diff % 15.00) == 0 and (
+                            display_message != current_message) or (
+                                downloaded == file_size):
+                        await gdrive.edit(current_message)
+                        display_message = current_message
+                    files.write(chunk)
+    else:
+        file_name = file.get('name')
+        mimeType = file.get('mimeType')
+        if mimeType == 'application/vnd.google-apps.folder':
+            await gdrive.edit("Aborting, folder download not support...")
+            return False
+        file_path = TEMP_DOWNLOAD_DIRECTORY + file_name
+        request = service.files().get_media(fileId=file_Id,
+                                            supportsAllDrives=True)
+        with io.FileIO(file_path, 'wb') as df:
+            downloader = MediaIoBaseDownload(df, request)
+            complete = False
+            is_cancelled = False
+            current_time = time.time()
+            display_message = None
+            while not complete:
+                if is_cancelled:
+                    raise CancelProcess
+                status, complete = downloader.next_chunk()
+                if status:
+                    file_size = status.total_size
+                    diff = time.time() - current_time
+                    downloaded = status.resumable_progress
+                    percentage = downloaded / file_size  100
+                    speed = round(downloaded / diff, 2)
+                    eta = round((file_size - downloaded) / speed)
+                    prog_str = "`[{0}{1}] {2}%`".format(
+                        "".join(
+                            "●" for i in range(math.floor(percentage / 10))
+                        ),
+                        "".join(
+                            "○"
+                            for i in range(10 - math.floor(percentage / 10))
+                        ),
+                        round(percentage, 2),
+                    )
+                    current_message = (
+                        "**File Downloading**\n\n"
+                        f"**Name : **`{file_name}`\n"
+                        f"**Status : **\n{prog_str}\n"
+                        f"`{humanbytes(downloaded)} of {humanbytes(file_size)}"
+                        f" @ {humanbytes(speed)}\n`"
+                        f"**ETA :** {time_formatter(eta)}")
+                    if round(diff % 15.00) == 0 and (
+                            display_message != current_message) or (
+                                downloaded == file_size):
+                        await gdrive.edit(current_message)
+                        display_message = current_message
+    await gdrive.edit("**[FILE - DOWNLOAD]**\n\n"
+                      f"**Name   :** `{file_name}`\n"
+                      f"**Size   : **`{humanbytes(file_size)}`\n"
+                      f"**Path   : **`{file_path}`\n"
+                      "**Status : **OK - Successfully downloaded.")
+                      
 async def download_gdrive(gdrive, service, uri):
     reply = ""
     start = datetime.now()
