@@ -34,7 +34,6 @@ from . import (
     LOGS,
     TMP_DOWNLOAD_DIRECTORY,
     CancelProcess,
-    bot,
     progress,
 )
 from .sql_helper import google_drive_sql as helper
