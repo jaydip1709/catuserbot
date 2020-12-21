@@ -23,10 +23,8 @@ from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 from telethon import events
 
-from ..utils import admin_cmd, sudo_cmd
 from . import (
     BOTLOG_CHATID,
-    CMD_HELP,
     G_DRIVE_CLIENT_ID,
     G_DRIVE_CLIENT_SECRET,
     G_DRIVE_DATA,
@@ -528,7 +526,7 @@ async def gdrive_download(event, gdrive, service, uri):
                         f"**Status**\n{prog_str}\n"
                         f"`{humanbytes(downloaded)} of {humanbytes(file_size)}`"
                         f" @ {humanbytes(speed)}`\n"
-                        f"**ETA :** {time_formatter(eta)}"
+                        f"**ETA :** `{time_formatter(eta)}`"
                     )
                     if display_message != current_message:
                         await gdrive.edit(current_message)
@@ -569,7 +567,7 @@ async def gdrive_download(event, gdrive, service, uri):
                         f"**Status : **\n{prog_str}\n"
                         f"`{humanbytes(downloaded)} of {humanbytes(file_size)}"
                         f" @ {humanbytes(speed)}\n`"
-                        f"**ETA :** {time_formatter(eta)}"
+                        f"**ETA :** `{time_formatter(eta)}`"
                     )
                     if display_message != current_message:
                         await gdrive.edit(current_message)
