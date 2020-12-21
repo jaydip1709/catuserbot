@@ -818,7 +818,7 @@ async def share(service, event, url):
     try:
         result = await get_output(file_id)
     except Exception as e:
-        await edit_delete(event, e)
+        await edit_delete(event, e._get_reason())
         return
     await event.edit(f"**Shareable Links**\n\n{result}")
 
