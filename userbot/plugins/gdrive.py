@@ -1597,7 +1597,7 @@ async def g_download(event):
     catevent = await edit_or_reply(event, "Downloading Requested File from G-Drive...")
     file_name, catprocess = await gdrive_download(event, catevent, service, drive_link)
     if catprocess is not None:
-        await edit_delete(catevent, catprocess, parse_mode=parse_pre)
+        return await edit_delete(catevent, file_name, parse_mode=parse_pre)
     if os.path.exists(thumb_image_path):
         thumb = thumb_image_path
     if not cmd:
