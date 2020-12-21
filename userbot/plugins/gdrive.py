@@ -425,7 +425,7 @@ async def copy_dir(service, file_id, dir_id):
     return new_id
 
 
-async def gdrive_download(event , gdrive, service, uri):
+async def gdrive_download(event, gdrive, service, uri):
     reply = ""
     global is_cancelled
     if "&export=download" in uri:
@@ -482,7 +482,7 @@ async def gdrive_download(event , gdrive, service, uri):
                             "**Status : **BAD - failed to download.\n"
                             f"**Reason : **`{error}`"
                         )
-                    return reply , "Error"
+                    return reply, "Error"
                 download = session.get(export, stream=True)
                 file_size = human_to_bytes(
                     page.find("span", {"class": "uc-name-size"})
@@ -540,7 +540,7 @@ async def gdrive_download(event , gdrive, service, uri):
         file_name = file.get("name")
         mimeType = file.get("mimeType")
         if mimeType == "application/vnd.google-apps.folder":
-            return "Aborting, folder download not support..." , "Error"
+            return "Aborting, folder download not support...", "Error"
         file_path = os.path.join(TMP_DOWNLOAD_DIRECTORY, file_name)
         request = service.files().get_media(fileId=file_Id, supportsAllDrives=True)
         with io.FileIO(file_path, "wb") as df:
@@ -587,7 +587,7 @@ async def gdrive_download(event , gdrive, service, uri):
         f"**Path   : **`{file_path}`\n"
         "**Status : **OK - Successfully downloaded."
     )
-    return file_path , None
+    return file_path, None
 
 
 async def download_gdrive(gdrive, service, uri):
@@ -1578,17 +1578,22 @@ async def g_download(event):
             5,
         )
 
-@bot.on(admin_cmd(pattern="gdown ?(-u)? (.*)", command="(gdown|gdown -u)", outgoing=True))
-@bot.on(sudo_cmd(pattern="gdown ?(-u)? (.*)", command="(gdown|gdown -u)", allow_sudo=True))
+
+@bot.on(
+    admin_cmd(pattern="gdown ?(-u)? (.*)", command="(gdown|gdown -u)", outgoing=True)
+)
+@bot.on(
+    sudo_cmd(pattern="gdown ?(-u)? (.*)", command="(gdown|gdown -u)", allow_sudo=True)
+)
 async def g_download(event):
     if event.fwd_from:
         return
     cmd = event.pattern_match.group(1)
     drive_link = event.pattern_match.group(2)
     catevent = await edit_or_reply(event, "Downloading Requested File from G-Drive...")
-    file_name , catprocess = await gdrive_download(event, catevent, service , drive_link)
+    file_name, catprocess = await gdrive_download(event, catevent, service, drive_link)
     if catprocess is not None:
-        await edit_delete(catevent, catprocess , parse_mode = parse_pre)
+        await edit_delete(catevent, catprocess, parse_mode=parse_pre)
     if os.path.exists(thumb_image_path):
         thumb = thumb_image_path
     if not cmd:
@@ -1611,7 +1616,7 @@ async def g_download(event):
             catevent,
             "**File Downloaded and uploaded.\nName : **`" + str(file_name) + "`",
             5,
-        )        
+        )
 
 
 CMD_HELP.update(
