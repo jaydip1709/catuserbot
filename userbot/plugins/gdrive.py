@@ -1588,6 +1588,9 @@ async def g_download(event):
 async def g_download(event):
     if event.fwd_from:
         return
+    service = await create_app(event)
+    if service is False:
+        return None
     cmd = event.pattern_match.group(1)
     drive_link = event.pattern_match.group(2)
     catevent = await edit_or_reply(event, "Downloading Requested File from G-Drive...")
