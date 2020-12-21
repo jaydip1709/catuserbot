@@ -42,9 +42,6 @@ async def update_requirements():
         for i in a:
             await runcmd(f"pip install {i}")
             print(f"Succesfully installed {i}")
-        for i in r:
-            await runcmd(f"pip uninstall {i}")
-            print(f"Succesfully uninstalled {i}")
     except Exception as e:
         print(f"Error while installing requirments {str(e)}")
 
