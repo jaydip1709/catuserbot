@@ -23,9 +23,10 @@ from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 from telethon import events
 
-from ..utils import humanbytes, time_formatter,admin_cmd, sudo_cmd
+from ..utils import admin_cmd, humanbytes, sudo_cmd, time_formatter
 from . import (
     BOTLOG_CHATID,
+    CMD_HELP,
     G_DRIVE_CLIENT_ID,
     G_DRIVE_CLIENT_SECRET,
     G_DRIVE_DATA,
@@ -34,7 +35,6 @@ from . import (
     TMP_DOWNLOAD_DIRECTORY,
     CancelProcess,
     progress,
-    CMD_HELP
 )
 from .sql_helper import google_drive_sql as helper
 
@@ -83,7 +83,7 @@ if __ is not None:
 logger = logging.getLogger("googleapiclient.discovery")
 logger.setLevel(logging.ERROR)
 
-thumb_image_path = os.path.join(Config.TMP_DOWNLOAD_DIRECTORY ,"/thumb_image.jpg")
+thumb_image_path = os.path.join(Config.TMP_DOWNLOAD_DIRECTORY, "/thumb_image.jpg")
 # =========================================================== #
 #                                                             #
 # =========================================================== #
@@ -527,7 +527,7 @@ async def gdrive_download(event, gdrive, service, uri):
                         f"`{humanbytes(downloaded)} of {humanbytes(file_size)}`"
                         f" @ {humanbytes(speed)}`\n"
                         f"**ETA :** {time_formatter(eta)}"
-                            )
+                    )
                     if display_message != current_message:
                         await gdrive.edit(current_message)
                         display_message = current_message
@@ -568,7 +568,7 @@ async def gdrive_download(event, gdrive, service, uri):
                         f"`{humanbytes(downloaded)} of {humanbytes(file_size)}"
                         f" @ {humanbytes(speed)}\n`"
                         f"**ETA :** {time_formatter(eta)}"
-                            )
+                    )
                     if display_message != current_message:
                         await gdrive.edit(current_message)
                         display_message = current_message
@@ -1463,7 +1463,6 @@ async def check_progress_for_dl(event, gid, previous):
                 )
 
 
-
 @bot.on(
     admin_cmd(pattern="gdown ?(-u)? (.*)", command="(gdown|gdown -u)", outgoing=True)
 )
@@ -1479,7 +1478,9 @@ async def g_download(event):
     thumb = None
     cmd = event.pattern_match.group(1)
     drive_link = event.pattern_match.group(2)
-    catevent = await edit_or_reply(event, "`Downloading Requested File from G-Drive...`")
+    catevent = await edit_or_reply(
+        event, "`Downloading Requested File from G-Drive...`"
+    )
     file_name, catprocess = await gdrive_download(event, catevent, service, drive_link)
     if catprocess is not None:
         return await edit_delete(catevent, file_name)
