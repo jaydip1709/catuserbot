@@ -858,9 +858,9 @@ async def get_output(service, file_id):
     file_size = humanbytes(int(file_.get("size", 0)))
     mime_type = file_.get("mimeType")
     if mime_type == "application/vnd.google-apps.folder":
-        out = G_DRIVE_FOLDER_LINK.format(file_id, file_name)
+        out = G_DRIVE_FOLDER_LINK.format(file_name, file_id)
     else:
-        out = G_DRIVE_FILE_LINK.format(file_id, file_name, file_size)
+        out = G_DRIVE_FILE_LINK.format(file_name, file_id, file_size)
     if Config.G_DRIVE_INDEX_LINK:
         link = os.path.join(
             Config.G_DRIVE_INDEX_LINK.rstrip("/"),
