@@ -1,4 +1,4 @@
-telethon==1.17.5
+telethon==1.18.2
 aiofiles
 aiohttp
 asyncurban
@@ -67,4 +67,3 @@ vcsi
 wand
 wikipedia
 youtube_dl > 2020.11.12
-covid19-data
