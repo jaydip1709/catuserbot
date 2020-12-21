@@ -508,7 +508,7 @@ async def gdrive_download(gdrive, service, uri):
                         first = False
                     else:
                         downloaded += len(chunk)
-                    percentage = downloaded / file_size  100
+                    percentage = downloaded / file_size * 100
                     speed = round(downloaded / diff, 2)
                     eta = round((file_size - downloaded) / speed)
                     prog_str = "`[{0}{1}] {2}%`".format(
@@ -557,7 +557,7 @@ async def gdrive_download(gdrive, service, uri):
                     file_size = status.total_size
                     diff = time.time() - current_time
                     downloaded = status.resumable_progress
-                    percentage = downloaded / file_size  100
+                    percentage = downloaded / file_size  *100
                     speed = round(downloaded / diff, 2)
                     eta = round((file_size - downloaded) / speed)
                     prog_str = "`[{0}{1}] {2}%`".format(
