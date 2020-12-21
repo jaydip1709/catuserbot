@@ -14,6 +14,7 @@ from datetime import datetime
 from mimetypes import guess_type
 from os.path import getctime, isdir, isfile, join
 from urllib.parse import quote
+
 import requests
 from bs4 import BeautifulSoup
 from google.auth.transport.requests import Request
@@ -805,21 +806,22 @@ async def reset_parentId():
         del parent_Id
     return
 
+
 G_DRIVE_FILE_LINK = "📄 [{}](https://drive.google.com/open?id={}) __({})__"
 G_DRIVE_FOLDER_LINK = "📁 [{}](https://drive.google.com/drive/folders/{})"
 
-async def share(service , event,url):
+
+async def share(service, event, url):
     """ get shareable link """
     await event.edit("`Loading GDrive Share...`")
     file_Id, _ = await get_file_id(file_Id)
     try:
         out = await get_output(file_id)
     except Exception as e:
-        await edit_delete(event,e) 
+        await edit_delete(event, e)
         return
-    await event.edit(
-            f"**Shareable Links**\n\n{out}"
-        )
+    await event.edit(f"**Shareable Links**\n\n{out}")
+
 
 def get_file_path(service, file_id, file_name):
     tmp_path = [file_name]
@@ -840,12 +842,17 @@ def get_file_path(service, file_id, file_name):
         tmp_path.append(response["name"])
     return "/".join(reversed(tmp_path[:-1]))
 
+
 async def get_output(service, file_id):
-    file_ = service.files().get(
+    file_ = (
+        service.files()
+        .get(
             fileId=file_id,
             fields="id, name, size, mimeType",
             supportsTeamDrives=True,
-        ).execute()
+        )
+        .execute()
+    )
     file_id = file_.get("id")
     file_name = file_.get("name")
     file_size = humanbytes(int(file_.get("size", 0)))
@@ -857,12 +864,13 @@ async def get_output(service, file_id):
     if Config.G_DRIVE_INDEX_LINK:
         link = os.path.join(
             Config.G_DRIVE_INDEX_LINK.rstrip("/"),
-            quote(get_file_path(service , file_id, file_name)),
+            quote(get_file_path(service, file_id, file_name)),
         )
         if mime_type == "application/vnd.google-apps.folder":
             link += "/"
         out += f"\n👥 __[Shareable Link]({link})__"
-    return out        
+    return out
+
 
 async def lists(gdrive):
     checker = gdrive.pattern_match.group(1)
