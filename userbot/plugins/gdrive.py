@@ -4,13 +4,13 @@
 
 import asyncio
 import base64
+import io
 import json
 import logging
 import math
 import os
 import pickle
 import re
-import io
 import time
 from datetime import datetime
 from mimetypes import guess_type
@@ -494,7 +494,7 @@ async def gdrive_download(gdrive, service, uri):
             file_name = re.search(
                 'filename="(.)"', download.headers["Content-Disposition"]
             ).group(1)
-            file_path = os.path.join(TMP_DOWNLOAD_DIRECTORY , file_name)
+            file_path = os.path.join(TMP_DOWNLOAD_DIRECTORY, file_name)
             with io.FileIO(file_path, "wb") as files:
                 CHUNK_SIZE = None
                 current_time = time.time()
@@ -544,7 +544,7 @@ async def gdrive_download(gdrive, service, uri):
         if mimeType == "application/vnd.google-apps.folder":
             await gdrive.edit("Aborting, folder download not support...")
             return False
-        file_path = os.path.join(TMP_DOWNLOAD_DIRECTORY ,file_name)
+        file_path = os.path.join(TMP_DOWNLOAD_DIRECTORY, file_name)
         request = service.files().get_media(fileId=file_Id, supportsAllDrives=True)
         with io.FileIO(file_path, "wb") as df:
             downloader = MediaIoBaseDownload(df, request)
