@@ -37,7 +37,7 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
 
 
 async def update_requirements():
-    a, r = await lines_differnce("requirements.txt", "cat_ub/requirements.txt")
+    a, r = await lines_differnce("requirements.txt", "./cat_ub/requirements.txt")
     try:
         for i in a:
             await runcmd(f"pip install {i}")
