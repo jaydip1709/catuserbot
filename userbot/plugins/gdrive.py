@@ -814,13 +814,13 @@ G_DRIVE_FOLDER_LINK = "📁 [{}](https://drive.google.com/drive/folders/{})"
 async def share(service, event, url):
     """ get shareable link """
     await event.edit("`Loading GDrive Share...`")
-    file_Id, _ = await get_file_id(file_Id)
+    file_id, _ = await get_file_id(url)
     try:
-        out = await get_output(file_id)
+        result = await get_output(file_id)
     except Exception as e:
         await edit_delete(event, e)
         return
-    await event.edit(f"**Shareable Links**\n\n{out}")
+    await event.edit(f"**Shareable Links**\n\n{result}")
 
 
 def get_file_path(service, file_id, file_name):
