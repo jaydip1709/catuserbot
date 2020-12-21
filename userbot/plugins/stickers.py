@@ -22,8 +22,6 @@ from telethon.tl.types import (
     MessageMediaPhoto,
 )
 
-from . import media_type
-
 combot_stickers_url = "https://combot.org/telegram/stickers?q="
 
 EMOJI_SEN = [
@@ -371,14 +369,14 @@ async def pack_kang(event):
     if event.fwd_from:
         return
     user = await event.client.get_me()
-    if not user.username:
+    if user.username:
+        username = user.username
+    else:
         try:
             user.first_name.encode("utf-8").decode("ascii")
             username = user.first_name
         except UnicodeDecodeError:
             username = f"cat_{user.id}"
-    else:
-        username = user.username
     photo = None
     userid = user.id
     is_anim = False
@@ -479,8 +477,23 @@ async def pack_kang(event):
             htmlstr = response.read().decode("utf8").split("\n")
             if (
                 "  A <strong>Telegram</strong> user has created the <strong>Sticker&nbsp;Set</strong>."
-                not in htmlstr
+                in htmlstr
             ):
+                async with event.client.conversation("Stickers") as conv:
+                    pack, catpackname = await newpacksticker(
+                        catevent,
+                        conv,
+                        cmd,
+                        event,
+                        pack,
+                        packnick,
+                        stfile,
+                        emoji,
+                        packname,
+                        is_anim,
+                        pkang=True,
+                    )
+            else:
                 async with event.client.conversation("Stickers") as conv:
                     pack, catpackname = await add_to_pack(
                         catevent,
@@ -496,28 +509,13 @@ async def pack_kang(event):
                         cmd,
                         pkang=True,
                     )
-            else:
-                async with event.client.conversation("Stickers") as conv:
-                    pack, catpackname = await newpacksticker(
-                        catevent,
-                        conv,
-                        cmd,
-                        event,
-                        pack,
-                        packnick,
-                        stfile,
-                        emoji,
-                        packname,
-                        is_anim,
-                        pkang=True,
-                    )
             if catpackname not in blablapacks:
                 blablapacks.append(catpackname)
                 blablapacknames.append(pack)
         kangst += 1
         await asyncio.sleep(2)
     result = "`This sticker pack is kanged into the following your sticker pack(s):`\n"
-    for i in range(0, len(blablapacks)):
+    for i in range(len(blablapacks)):
         result += f"  •  [pack {blablapacknames[i]}](t.me/addstickers/{blablapacks[i]})"
     await catevent.edit(result)
 
