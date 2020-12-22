@@ -6,9 +6,8 @@ import io
 import os
 import time
 from pathlib import Path
-
-from ..utils import humanbytes
-from . import runcmd
+import shutil
+from . import runcmd, humanbytes
 
 
 @bot.on(admin_cmd(pattern="ls ?(.*)"))
@@ -115,7 +114,64 @@ async def lst(event):
         await runcmd(catcmd)
         await edit_or_reply(event, f"Succesfully removed `{path}` file")
 
+@bot.on(admin_cmd(pattern="cpto(?: |$)(.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern="cpto(?: |$)(.*)", allow_sudo=True))
+async def _(event):
+    if event.fwd_from:
+        return
+    pwd = "./"
+    input_str = event.pattern_match.group(1)
+    if not input_str:
+        return await edit_delete(
+            event,
+            "What and where should i move the file/folder.",
+            parse_mode=parse_pre,
+        )
+    loc = input_str.split(";")
+    if len(loc) != 2:
+        return await edit_delete(
+            event, "use proper syntax .cpto from ; to destination", parse_mode=parse_pre
+        )
+    original = os.path.join(pwd, loc[0].strip())
+    location = os.path.join(pwd, loc[1].strip())
+    mone = await edit_or_reply(event, "copying the file ...", parse_mode=parse_pre)
+    await asyncio.sleep(2)
+    try:
+        await runcmd(f"cp -r {original} {location}")
+        await mone.edit(f"Successfully copied the `{original}` to `{location}`")
+    except Exception as e:
+        await edit_delete(mone, str(e), parse_mode=parse_pre)
 
+
+@bot.on(admin_cmd(pattern="mvto(?: |$)(.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern="mvto(?: |$)(.*)", allow_sudo=True))
+async def _(event):
+    if event.fwd_from:
+        return
+    pwd = "./"
+    input_str = event.pattern_match.group(1)
+    if not input_str:
+        return await edit_delete(
+            event,
+            "What and where should i move the file/folder.",
+            parse_mode=parse_pre,
+        )
+    loc = input_str.split(";")
+    if len(loc) != 2:
+        return await edit_delete(
+            event, "use proper syntax .mvto from ; to destination", parse_mode=parse_pre
+        )
+    original = os.path.join(pwd, loc[0].strip())
+    location = os.path.join(pwd, loc[1].strip())
+    mone = await edit_or_reply(event, "Moving the file ...", parse_mode=parse_pre)
+    await asyncio.sleep(2)
+    try:
+        shutil.move(original, location)
+        await mone.edit(f"Successfully moved the `{original}` to `{location}`")
+    except Exception as e:
+        await edit_delete(mone, str(e), parse_mode=parse_pre)
+
+        
 CMD_HELP.update(
     {
         "filemanager": "**Plugin :**`filemanager`\
