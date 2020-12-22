@@ -170,17 +170,19 @@ async def download_video(v_url):
     await v_url.delete()
 
 
-@bot.on(admin_cmd(pattern="yts (.*)"))
-@bot.on(sudo_cmd(pattern="yts (.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern="yts(?: |$)(.*)"))
+@bot.on(sudo_cmd(pattern="yts(?: |$)(.*)", allow_sudo=True))
 async def yt_search(event):
     if event.fwd_from:
         return
     query = event.pattern_match.group(1)
+    if not query:
+        return await edit_delete(event, "what should i search", parse_mode=parse_pre)
     video_q = await edit_or_reply(event, "```Searching...```")
     try:
         full_response = await youtube_search(query)
     except Exception as e:
-        return await edit_delete(video_q, str(e), parse_mode=parse_pre)
+        return await edit_delete(video_q, str(e), parse_mode=parse_pre , 10)
     reply_text = (
         f"**•  Search Query:**\n`{query}`\n\n**•  Results:**\n\n{full_response}"
     )
