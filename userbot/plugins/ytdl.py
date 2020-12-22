@@ -1,6 +1,6 @@
 # Thanks to @AvinashReddy3108 for this plugin
 # Instadl by @Jisan7509
-# youtube plugin for catuserbot
+#youtube plugin for catuserbot
 import asyncio
 import os
 import re
@@ -187,7 +187,7 @@ async def youtube_search(cat):
     if Config.YOUTUBE_API_KEY:
         vi = await yt_search_api(cat)
         for v in vi:
-            result += f"☞ [{unescape(v['snippet']['title'])}](https://youtu.be/{v[0]['id']['videoId']})"
+            result += f"☞ [{unescape(v['snippet']['title'])}](https://youtu.be/{v['id']['videoId']})"
             result += f"\n`{unescape(v['snippet']['description'])}`\n\n"
     if result is None:
         vi = await yt_search(cat)
