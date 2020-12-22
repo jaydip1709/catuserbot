@@ -1,5 +1,4 @@
-# Copyright (C) 2019 The Raphielscape Company LLC.
-# Licensed under the Raphielscape Public License, Version 1.c (the "License");
+# Download plugin for catuserbot
 
 import asyncio
 import math
@@ -99,7 +98,7 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    pwd = os.getcwd()
+    pwd = "./"
     input_str = event.pattern_match.group(1)
     if not input_str:
         return await edit_delete(
