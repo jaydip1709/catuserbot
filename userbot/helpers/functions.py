@@ -4,7 +4,7 @@ import time
 import urllib.request
 import zipfile
 from random import choice
-
+from ..Config import Config
 import PIL.ImageOps
 import requests
 from PIL import Image, ImageDraw, ImageFont
