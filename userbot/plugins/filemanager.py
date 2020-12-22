@@ -7,7 +7,7 @@ import os
 import shutil
 import time
 from pathlib import Path
-
+import asyncio
 from . import humanbytes, runcmd
 
 
