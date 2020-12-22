@@ -184,7 +184,7 @@ async def catalive():
                   "
 
 
-async def make_gif(event , reply, quality=None, fps=None):
+async def make_gif(event, reply, quality=None, fps=None):
     fps = fps or 1
     quality = quality or 256
     animation = lottie.parsers.tgs.parse_tgs(reply)
