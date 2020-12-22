@@ -12,7 +12,9 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from validators.url import url
 
-from . import name_dl, runcmd, song_dl, video_dl, yt_search as yt_search_no, yt_search_api
+from . import name_dl, runcmd, song_dl, video_dl
+from . import yt_search as yt_search_no
+from . import yt_search_api
 
 # =========================================================== #
 #                           STRINGS                           #
