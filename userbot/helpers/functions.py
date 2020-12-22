@@ -67,8 +67,8 @@ async def yt_search(cat):
         for i in user_data:
             if user_data:
                 video_link.append("https://www.youtube.com/watch?v=" + user_data[k])
-            k+=1
-            if k>10:
+            k += 1
+            if k > 10:
                 break
         if video_link:
             return video_link
@@ -78,28 +78,31 @@ async def yt_search(cat):
 
 
 from googleapiclient.discovery import build
+
+
 async def yt_search_api(cat):
     youtube = build(
-            "youtube", "v3", developerKey=Config.YOUTUBE_API_KEY, cache_discovery=False
-        )
-    order="relevance"
+        "youtube", "v3", developerKey=Config.YOUTUBE_API_KEY, cache_discovery=False
+    )
+    order = "relevance"
     search_response = (
-            youtube.search()
-            .list(
-                q= cat,
-                type="video",
-                order=order,
-                part="id,snippet",
-                maxResults=10,
-            )
-            .execute()
+        youtube.search()
+        .list(
+            q=cat,
+            type="video",
+            order=order,
+            part="id,snippet",
+            maxResults=10,
         )
+        .execute()
+    )
     videos = [
         search_result
         for search_result in search_response.get("items", [])
         if search_result["id"]["kind"] == "youtube#video"
     ]
     return videos
+
 
 async def sanga_seperator(sanga_list):
     for i in sanga_list:
