@@ -16,7 +16,7 @@ from telethon.tl.types import DocumentAttributeVideo
 
 from . import progress
 
-thumb_image_path = os.path.join(Config.TMP_DOWNLOAD_DIRECTORY, "/thumb_image.jpg")
+thumb_image_path = os.path.join(Config.TMP_DOWNLOAD_DIRECTORY, "thumb_image.jpg")
 
 
 @bot.on(admin_cmd(pattern=("zip ?(.*)")))
@@ -403,18 +403,19 @@ def get_lst_of_files(input_directory, output_lst):
 
 CMD_HELP.update(
     {
-        "archive": "**Syntax : **`.zip reply to a file/media`\
-    \n**Usage : **it will zip that file/media\
-    \n\n**Syntax : **`.rar reply to a file/media`\
-    \n**Usage : **it will rar that file/media\
-    \n\n**Syntax : **`.tar reply to a file/media`\
-    \n**Usage : **it will tar that file/media\
-    \n\n**Syntax : **`.unzip reply to a .zip file`\
-    \n**Usage : **it will unzip that .zip file\
-    \n\n**Syntax : **`.unrar reply to a .rar file`\
-    \n**Usage : **it will unrar that .rar file\
-    \n\n**Syntax : **`.untar reply to a .tar`\
-    \n**Usage : **it will untar that .tar file\
+        "archive": "**Plugin : **`archive`\
+    \n\n  •  **Syntax : **`.zip reply to a file/media`\
+    \n  •  **Usage : **it will zip that file/media\
+    \n\n  •  **Syntax : **`.rar reply to a file/media`\
+    \n  •  **Usage : **it will rar that file/media\
+    \n\n  •  **Syntax : **`.tar reply to a file/media`\
+    \n  •  **Usage : **it will tar that file/media\
+    \n\n*  •  *Syntax : **`.unzip reply to a .zip file`\
+    \n  •  **Usage : **it will unzip that .zip file\
+    \n\n  •  **Syntax : **`.unrar reply to a .rar file`\
+    \n  •  **Usage : **it will unrar that .rar file\
+    \n\n  •  **Syntax : **`.untar reply to a .tar`\
+    \n  •  **Usage : **it will untar that .tar file\
 "
     }
 )
