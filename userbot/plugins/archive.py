@@ -404,14 +404,14 @@ def get_lst_of_files(input_directory, output_lst):
 CMD_HELP.update(
     {
         "archive": "**Plugin : **`archive`\
-    \n\n  •  **Syntax : **`.zip reply to a file/media`\
-    \n  •  **Usage : **it will zip that file/media\
+    \n\n  •  **Syntax : **`.zip (reply/path)`\
+    \n  •  **Usage : **it will zip that file which you replied or will zip the folder/file in the given path\
+    \n\n  •  **Syntax : **`.unzip (reply to zip file/path`\
+    \n  •  **Usage : **it will unzip that zip file or the zip file in the given path\
     \n\n  •  **Syntax : **`.rar reply to a file/media`\
     \n  •  **Usage : **it will rar that file/media\
     \n\n  •  **Syntax : **`.tar reply to a file/media`\
     \n  •  **Usage : **it will tar that file/media\
-    \n\n*  •  *Syntax : **`.unzip reply to a .zip file`\
-    \n  •  **Usage : **it will unzip that .zip file\
     \n\n  •  **Syntax : **`.unrar reply to a .rar file`\
     \n  •  **Usage : **it will unrar that .rar file\
     \n\n  •  **Syntax : **`.untar reply to a .tar`\
