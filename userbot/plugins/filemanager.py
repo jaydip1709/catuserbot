@@ -2,12 +2,13 @@
 By:- @Mrconfused & @sandy1709
 idea from userage
 """
+import asyncio
 import io
 import os
 import shutil
 import time
 from pathlib import Path
-import asyncio
+
 from . import humanbytes, runcmd
 
 
