@@ -13,12 +13,9 @@ try:
 except:
     os.system("pip install colour")
 from PIL import Image, ImageDraw, ImageFont
-from telethon.errors.rpcerrorlist import YouBlockedUserError
 from wand.color import Color
 from wand.drawing import Drawing
 from wand.image import Image as catimage
-
-from . import unzip
 
 MARGINS = [50, 150, 250, 350, 450]
 
