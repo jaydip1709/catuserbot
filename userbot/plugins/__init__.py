@@ -7,7 +7,7 @@ import heroku3
 import requests
 import spamwatch as spam_watch
 from validators.url import url
-
+import lottie
 from .. import *
 from ..Config import Config
 from ..helpers import *
@@ -181,3 +181,11 @@ async def catalive():
                   \nUptime : {uptime}\
                   \nDyno : {dyno}\
                   "
+
+async def make_gif(reply , quality=None , fps=None):
+    fps = fps or 1
+    quality = quality or 256
+    animation = lottie.parsers.tgs.parse_tgs(reply)
+    with open("animation.gif", 'wb') as result:
+        await run_sync(lottie.exporters.gif.export_gif ,animation , result, quality, fps)
+    return "animation.gif"
