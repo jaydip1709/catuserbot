@@ -73,7 +73,7 @@ async def set_group_photo(gpic):
         await edit_or_reply(gpic, "`I don't think this is a group.`")
         return
     replymsg = await gpic.get_reply_message()
-    chat = await gpic.get_chat()
+    await gpic.get_chat()
     photo = None
     if replymsg and replymsg.media:
         if isinstance(replymsg.media, MessageMediaPhoto):
@@ -433,6 +433,7 @@ async def endmute(event):
                 f"CHAT: {event.chat.title}(`{event.chat_id}`)",
             )
 
+
 @bot.on(admin_cmd(pattern="kick(?: |$)(.*)", command="kick"))
 @bot.on(sudo_cmd(pattern="kick(?: |$)(.*)", command="kick", allow_sudo=True))
 @errors_handler
@@ -470,6 +471,7 @@ async def kick(usr):
             f"CHAT: {usr.chat.title}(`{usr.chat_id}`)\n",
         )
 
+
 @bot.on(admin_cmd(pattern="pin($| (.*))", command="pin"))
 @bot.on(sudo_cmd(pattern="pin($| (.*))", command="pin", allow_sudo=True))
 @errors_handler
@@ -477,7 +479,7 @@ async def pin(msg):
     if msg.fwd_from:
         return
     if not msg.is_private:
-        chat = await msg.get_chat()
+        await msg.get_chat()
     to_pin = msg.reply_to_msg_id
     if not to_pin:
         return await edit_delete(msg, "`Reply to a message to pin it.`", 5)
@@ -513,7 +515,7 @@ async def pin(msg):
     if msg.fwd_from:
         return
     if not msg.is_private:
-        chat = await msg.get_chat()
+        await msg.get_chat()
     to_unpin = msg.reply_to_msg_id
     options = (msg.pattern_match.group(1)).strip()
     if not to_unpin and options != "all":
