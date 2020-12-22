@@ -5,14 +5,12 @@ import os
 import time
 from datetime import datetime
 from io import BytesIO
-from pathlib import Path
 
 from telethon import functions, types
 from telethon.errors import PhotoInvalidDimensionsError
-from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import SendMediaRequest
 
-from . import unzip, progress, make_gif
+from . import make_gif, progress
 
 if not os.path.isdir("./temp"):
     os.makedirs("./temp")
@@ -158,22 +156,25 @@ async def _(event):
         fps = None
     elif input_str:
         loc = input_str.split(";")
-        if len(loc)>2:
-            return await edit_delete(event , "wrong syntax . syntax is `.gif quality ; fps(frames per second)`")
-        elif len(loc)==2:
-            if 0<loc[0]<721:
+        if len(loc) > 2:
+            return await edit_delete(
+                event,
+                "wrong syntax . syntax is `.gif quality ; fps(frames per second)`",
+            )
+        elif len(loc) == 2:
+            if 0 < loc[0] < 721:
                 quality = loc[0].strip()
             else:
-                return await edit_delete(event , "Use quality of range 0 to 721")
-            if 0<loc[1]<20:
+                return await edit_delete(event, "Use quality of range 0 to 721")
+            if 0 < loc[1] < 20:
                 quality = loc[1].strip()
             else:
-                return await edit_delete(event , "Use quality of range 0 to 20")
-        elif len(loc)==1:
-            if 0<loc[0]<721:
+                return await edit_delete(event, "Use quality of range 0 to 20")
+        elif len(loc) == 1:
+            if 0 < loc[0] < 721:
                 quality = loc[0].strip()
             else:
-                return await edit_delete(event , "Use quality of range 0 to 721")
+                return await edit_delete(event, "Use quality of range 0 to 721")
     catreply = await event.get_reply_message()
     if not catreply or not catreply.media or not catreply.media.document:
         return await edit_or_reply(event, "`Stupid!, This is not animated sticker.`")
@@ -181,29 +182,29 @@ async def _(event):
         return await edit_or_reply(event, "`Stupid!, This is not animated sticker.`")
     reply_to_id = reply_id(event)
     catfile = await event.client.download_media(catreply)
-    catgif = await make_gif(event , catfile , quality , fps)
+    catgif = await make_gif(event, catfile, quality, fps)
     sandy = await event.client.send_file(
-                event.chat_id,
-                catgif,
-                support_streaming=True,
-                force_document=False,
-                reply_to=reply_to_id,
-            )
+        event.chat_id,
+        catgif,
+        support_streaming=True,
+        force_document=False,
+        reply_to=reply_to_id,
+    )
     await event.client(
-                functions.messages.SaveGifRequest(
-                    id=types.InputDocument(
-                        id=sandy.media.document.id,
-                        access_hash=sandy.media.document.access_hash,
-                        file_reference=sandy.media.document.file_reference,
-                    ),
-                    unsave=True,
-                )
-            )
+        functions.messages.SaveGifRequest(
+            id=types.InputDocument(
+                id=sandy.media.document.id,
+                access_hash=sandy.media.document.access_hash,
+                file_reference=sandy.media.document.file_reference,
+            ),
+            unsave=True,
+        )
+    )
     await catevent.delete()
     for files in (catgif, catfile):
-                if files and os.path.exists(files):
-                    os.remove(files)
-    
+        if files and os.path.exists(files):
+            os.remove(files)
+
 
 @bot.on(admin_cmd(pattern="nfc ?(.*)"))
 @bot.on(sudo_cmd(pattern="nfc ?(.*)", allow_sudo=True))
@@ -236,7 +237,7 @@ async def _(event):
                 progress(d, t, event, c_time, "trying to download")
             ),
         )
-    except Exception as e: 
+    except Exception as e:
         await event.edit(str(e))
     else:
         end = datetime.now()
