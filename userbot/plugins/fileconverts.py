@@ -157,7 +157,7 @@ async def _(event):
         quality = None
         fps = None
     elif input_str:
-        loc = input_str.split(;)
+        loc = input_str.split(";")
         if len(loc)>2:
             return await edit_delete(event , "wrong syntax . syntax is `.gif quality ; fps(frames per second)`")
         elif len(loc)==2:
