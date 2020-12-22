@@ -1,12 +1,13 @@
 # modified and developed by @mrconfused
 
 import asyncio
+import base64
 import io
 import math
 import random
 import urllib.request
 from os import remove
-import base64
+
 import emoji as catemoji
 import requests
 from bs4 import BeautifulSoup as bs
