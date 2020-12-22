@@ -1,5 +1,6 @@
 telethon==1.17.5
 setuptools
+wheel
 aiofiles
 aiohttp
 asyncurban
