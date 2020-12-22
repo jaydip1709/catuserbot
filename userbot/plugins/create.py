@@ -45,7 +45,7 @@ async def _(event):
             r = await event.client(
                 functions.channels.CreateChannelRequest(
                     title=group_name,
-                    about="This is a Test from @mrconfused",
+                    about="This is a Test Group created using catuserbot",
                     megagroup=type_of_group != "c",
                 )
             )
