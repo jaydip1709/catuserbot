@@ -4,13 +4,14 @@ import time
 import urllib.request
 import zipfile
 from random import choice
-from ..Config import Config
+
 import PIL.ImageOps
 import requests
 from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.types import Channel, PollAnswer
 from validators.url import url
 
+from ..Config import Config
 from .resources.states import states
 
 
