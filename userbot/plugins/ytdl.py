@@ -1,6 +1,6 @@
 # Thanks to @AvinashReddy3108 for this plugin
 # Instadl by @Jisan7509
-#youtube plugin for catuserbot
+# youtube plugin for catuserbot
 import asyncio
 import os
 import re
