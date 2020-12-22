@@ -16,7 +16,7 @@ from telethon.tl.types import DocumentAttributeVideo
 
 from . import progress
 
-thumb_image_path = os.path.join(Config.TMP_DOWNLOAD_DIRECTORY , "/thumb_image.jpg")
+thumb_image_path = os.path.join(Config.TMP_DOWNLOAD_DIRECTORY, "/thumb_image.jpg")
 
 
 @bot.on(admin_cmd(pattern=("zip ?(.*)")))
