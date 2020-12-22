@@ -175,7 +175,10 @@ async def download_video(v_url):
 async def yt_search(video_q):
     query = video_q.pattern_match.group(1)
     video_q = await edit_or_reply(video_q, "```Searching...```")
-    full_response = await youtube_search(query)
+    try:
+        full_response = await youtube_search(query)
+    except Exception as e:
+         return await edit_delete(video_q , str(e) , parse_mode=parse_pre)
     reply_text = (
         f"**•  Search Query:**\n`{query}`\n\n**•  Results:**\n\n{full_response}"
     )
@@ -184,11 +187,14 @@ async def yt_search(video_q):
 
 async def youtube_search(cat):
     result = ""
-    if Config.YOUTUBE_API_KEY:
-        vi = await yt_search_api(cat)
-        for v in vi:
-            result += f"☞ [{unescape(v['snippet']['title'])}](https://youtu.be/{v['id']['videoId']})"
-            result += f"\n`{unescape(v['snippet']['description'])}`\n\n"
+    try:                          
+        if Config.YOUTUBE_API_KEY:
+            vi = await yt_search_api(cat)
+            for v in vi:
+                result += f"☞ [{unescape(v['snippet']['title'])}](https://youtu.be/{v['id']['videoId']})"
+                result += f"\n`{unescape(v['snippet']['description'])}`\n\n"
+    except:
+        pass
     if result == "":
         vi = await yt_search(cat)
         for v in vi:
