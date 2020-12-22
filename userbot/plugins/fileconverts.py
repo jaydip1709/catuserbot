@@ -180,6 +180,7 @@ async def _(event):
         return await edit_or_reply(event, "`Stupid!, This is not animated sticker.`")
     if catreply.media.document.mime_type != "application/x-tgsticker":
         return await edit_or_reply(event, "`Stupid!, This is not animated sticker.`")
+    catevent = await edit_or_reply(event , "Converting this Sticker to GiF...\n This may takes upto few mins.." ,parse_mode=parse_pre)
     reply_to_id = reply_id(event)
     catfile = await event.client.download_media(catreply)
     catgif = await make_gif(event, catfile, quality, fps)
