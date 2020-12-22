@@ -9,7 +9,6 @@ from datetime import datetime
 from html import unescape
 from pathlib import Path
 
-from googleapiclient.discovery import build
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.types import DocumentAttributeAudio
 from youtube_dl import YoutubeDL
@@ -177,7 +176,9 @@ async def yt_search(video_q):
     query = video_q.pattern_match.group(1)
     video_q = await edit_or_reply(video_q, "```Searching...```")
     full_response = await youtube_search(query)
-    reply_text = f"**•  Search Query:**\n`{query}`\n\n**•  Results:**\n\n{full_response}"
+    reply_text = (
+        f"**•  Search Query:**\n`{query}`\n\n**•  Results:**\n\n{full_response}"
+    )
     await video_q.edit(reply_text)
 
 
@@ -193,6 +194,7 @@ async def youtube_search(query):
         for v in vi:
             result += f"☞ {v}\n\n"
     return result
+
 
 @bot.on(admin_cmd(pattern="insta (.*)"))
 @bot.on(sudo_cmd(pattern="insta (.*)", allow_sudo=True))
