@@ -23,7 +23,7 @@ from youtube_dl.utils import (
     XAttrMetadataError,
 )
 
-from . import hmention, progress, yt_search, yt_search_api
+from . import hmention, progress, yt_search as yt_search_no, yt_search_api
 
 
 @bot.on(admin_cmd(pattern="yt(a|v)(?: |$)(.*)", outgoing=True))
@@ -200,7 +200,7 @@ async def youtube_search(cat):
     except:
         pass
     if result == "":
-        vi = await yt_search(cat)
+        vi = await yt_search_no(cat)
         for v in vi:
             result += f"☞ {v}\n"
     return result
