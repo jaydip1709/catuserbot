@@ -142,6 +142,8 @@ CMD_HELP.update(
     {
         "download": "**Plugin : **`.download`\
         \n\n  •  **Syntax : **`.download <link|filename> or reply to media`\
-        \n  •  **Function : **__Downloads the file to the server.__"
+        \n  •  **Function : **__Downloads the file to the server.__\
+        \n\n  •  **Syntax : **`.dlto foldername (reply this to file)`\
+        \n  •  **Function : **__Downloads the file to the given folder in server.__"
     }
 )
