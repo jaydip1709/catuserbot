@@ -178,7 +178,7 @@ async def yt_search(video_q):
     try:
         full_response = await youtube_search(query)
     except Exception as e:
-         return await edit_delete(video_q , str(e) , parse_mode=parse_pre)
+        return await edit_delete(video_q, str(e), parse_mode=parse_pre)
     reply_text = (
         f"**•  Search Query:**\n`{query}`\n\n**•  Results:**\n\n{full_response}"
     )
@@ -187,7 +187,7 @@ async def yt_search(video_q):
 
 async def youtube_search(cat):
     result = ""
-    try:                          
+    try:
         if Config.YOUTUBE_API_KEY:
             vi = await yt_search_api(cat)
             for v in vi:
