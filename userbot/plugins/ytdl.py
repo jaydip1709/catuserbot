@@ -172,11 +172,11 @@ async def download_video(v_url):
 
 @bot.on(admin_cmd(pattern="yts (.*)"))
 @bot.on(sudo_cmd(pattern="yts (.*)", allow_sudo=True))
-async def yt_search(video_q):
-    if video_q.fwd_from:
+async def yt_search(event):
+    if event.fwd_from:
         return
-    query = video_q.pattern_match.group(1)
-    video_q = await edit_or_reply(video_q, "```Searching...```")
+    query = event.pattern_match.group(1)
+    video_q = await edit_or_reply(event, "```Searching...```")
     try:
         full_response = await youtube_search(query)
     except Exception as e:
