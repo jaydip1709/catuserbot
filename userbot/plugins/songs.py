@@ -218,7 +218,7 @@ async def cat_song_fetcer(event):
         await catevent.delete()
         await delete_messages(event, chat, purgeflag)
 
-async yt_search(cat):
+async def yt_search(cat):
     videol = None
     if Config.YOUTUBE_API_KEY:
         vi = await yt_search_api(cat)
