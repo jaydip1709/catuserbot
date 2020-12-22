@@ -1,15 +1,17 @@
 # Download plugin for catuserbot
 
 import asyncio
+import base64
 import math
 import os
 import time
 from datetime import datetime
 
 from pySmartDL import SmartDL
-import base64
-from . import ALIVE_NAME, humanbytes, progress
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+
+from . import ALIVE_NAME, humanbytes, progress
+
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 
 
@@ -106,7 +108,7 @@ async def _(event):
             "Where should i save this file. mention folder name",
             parse_mode=parse_pre,
         )
-    
+
     location = os.path.join(pwd, input_str)
     if not os.path.isdir(location):
         os.makedirs(location)
