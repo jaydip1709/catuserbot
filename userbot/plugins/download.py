@@ -133,7 +133,7 @@ async def _(event):
                 f"**  •  Downloaded in {ms} seconds.**\n**  •  Downloaded to :- ** `{downloaded_file_name}`\n**  •  Downloaded by :-** {DEFAULTUSER}"
             )
     else:
-        await mone.edit(
+        await edit_or_reply(event , 
             "Reply to a message to download to my server.", parse_mode=parse_pre
         )
 
