@@ -1,4 +1,4 @@
-telethon==1.17.5
+telethon
 setuptools
 wheel
 aiofiles
