@@ -1614,7 +1614,7 @@ CMD_HELP.update(
         "\ninto **G_DRIVE_FOLDER_ID** and if empty upload will go to root."
         "\n\n  •  **Syntax : **`.gdfclear`"
         "\n  •  **Function : **remove set parentId from cmd\n>`.gfset put` "
-        "\n\n  •  **Syntax : **`.gdl <gdrive File-Link>`\
+        "\n\n  •  **Syntax : **`.gdown <gdrive File-Link>`\
         \n  •  **Function : **G-Drive File Downloader Plugin For Userbot. only gdrive files are supported now"
         "\nUse flag `-u` to directly upload to telegram in `.gdl` command"
         "\n\n  •  **Syntax : **`.glist`"
@@ -1625,5 +1625,7 @@ CMD_HELP.update(
         "\nfor `.glist` you can combine -l and -p flags with or without name "
         "at the same time, it must be `-l` flags first before use `-p` flags.\n"
         "And by default it lists from latest 'modifiedTime' and then folders."
+        "\n\n  •  **Syntax : **`.gshare your gdrive link`"
+        "\n  •  **Function : **Get sharable link for team drive files need to set G_DRIVE_INDEX_LINK"
     }
 )
