@@ -1,5 +1,6 @@
 from telethon.tl.types import ChannelParticipantsAdmins
 
+
 @bot.on(admin_cmd(pattern="tagall$"))
 @bot.on(sudo_cmd(pattern="tagall$", allow_sudo=True))
 async def _(event):
