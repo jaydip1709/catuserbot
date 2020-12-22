@@ -12,8 +12,8 @@ from pathlib import Path
 from . import humanbytes, runcmd
 
 
-@bot.on(admin_cmd(pattern="ls ?(.*)"))
-@bot.on(sudo_cmd(pattern="ls ?(.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern="ls ?(.*)",command="ls"))
+@bot.on(sudo_cmd(pattern="ls ?(.*)", allow_sudo=True,command="ls"))
 async def lst(event):
     cat = "".join(event.text.split(maxsplit=1)[1:])
     path = cat or os.getcwd()
@@ -93,8 +93,8 @@ async def lst(event):
         await edit_or_reply(event, msg)
 
 
-@bot.on(admin_cmd(pattern="rem (.*)"))
-@bot.on(sudo_cmd(pattern="rem (.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern="rem (.*)",command="rem"))
+@bot.on(sudo_cmd(pattern="rem (.*)",command="rem", allow_sudo=True))
 async def lst(event):
     cat = event.pattern_match.group(1)
     if cat:
@@ -117,8 +117,8 @@ async def lst(event):
         await edit_or_reply(event, f"Succesfully removed `{path}` file")
 
 
-@bot.on(admin_cmd(pattern="mkdir(?: |$)(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="mkdir(?: |$)(.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern="mkdir(?: |$)(.*)", outgoing=True,command="mkdir"))
+@bot.on(sudo_cmd(pattern="mkdir(?: |$)(.*)", allow_sudo=True,command="mkdir"))
 async def _(event):
     if event.fwd_from:
         return
@@ -148,8 +148,8 @@ async def _(event):
         await edit_delete(mone, str(e), parse_mode=parse_pre)
 
 
-@bot.on(admin_cmd(pattern="cpto(?: |$)(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="cpto(?: |$)(.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern="cpto(?: |$)(.*)", outgoing=True,command="cpto"))
+@bot.on(sudo_cmd(pattern="cpto(?: |$)(.*)", allow_sudo=True,command="cpto"))
 async def _(event):
     if event.fwd_from:
         return
@@ -184,8 +184,8 @@ async def _(event):
         await edit_delete(mone, str(e), parse_mode=parse_pre)
 
 
-@bot.on(admin_cmd(pattern="mvto(?: |$)(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="mvto(?: |$)(.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern="mvto(?: |$)(.*)", outgoing=True,command="mvto"))
+@bot.on(sudo_cmd(pattern="mvto(?: |$)(.*)", allow_sudo=True,command="mvto"))
 async def _(event):
     if event.fwd_from:
         return
