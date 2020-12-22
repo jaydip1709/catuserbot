@@ -116,6 +116,7 @@ async def lst(event):
         await runcmd(catcmd)
         await edit_or_reply(event, f"Succesfully removed `{path}` file")
 
+
 @bot.on(admin_cmd(pattern="mkdir(?: |$)(.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="mkdir(?: |$)(.*)", allow_sudo=True))
 async def _(event):
@@ -136,14 +137,16 @@ async def _(event):
             f"Already a directory named {original} exists",
         )
         return
-    mone = await edit_or_reply(event, "creating the directory ...", parse_mode=parse_pre)
+    mone = await edit_or_reply(
+        event, "creating the directory ...", parse_mode=parse_pre
+    )
     await asyncio.sleep(2)
     try:
         await runcmd(f"mkdir {original}")
         await mone.edit(f"Successfully created the directory `{original}`")
     except Exception as e:
         await edit_delete(mone, str(e), parse_mode=parse_pre)
-        
+
 
 @bot.on(admin_cmd(pattern="cpto(?: |$)(.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="cpto(?: |$)(.*)", allow_sudo=True))
