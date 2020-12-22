@@ -140,7 +140,7 @@ async def _(img):
         searchUrl = "https://www.google.com/searchbyimage/upload"
         multipart = {"encoded_image": (name, open(name, "rb")), "image_content": ""}
         response = requests.post(searchUrl, files=multipart, allow_redirects=False)
-        fetchUrl = response.headers['Location']
+        fetchUrl = response.headers["Location"]
         if response != 400:
             await img.edit(
                 "`Image successfully uploaded to Google. Maybe.`"
