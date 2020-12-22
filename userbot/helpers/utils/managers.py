@@ -1,5 +1,8 @@
 import re
 
+import asyncio
+import functools
+
 import requests
 
 
@@ -22,3 +25,10 @@ def paste_text(text):
         ).json()
         link = f"https://del.dog/{kresult['key']}"
     return link
+
+def run_sync(func, *args, **kwargs):
+    return asyncio.get_event_loop().run_in_executor(None, functools.partial(func, *args, **kwargs))
+
+
+def run_async(loop, coro):
+    return asyncio.run_coroutine_threadsafe(coro, loop).result()
