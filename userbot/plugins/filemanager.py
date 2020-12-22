@@ -137,6 +137,13 @@ async def _(event):
         )
     original = os.path.join(pwd, loc[0].strip())
     location = os.path.join(pwd, loc[1].strip())
+    
+    if not os.path.exists(original):
+        await edit_delete(
+            event,
+            f"there is no such directory or file with the name `{cat}` check again",
+        )
+        return
     mone = await edit_or_reply(event, "copying the file ...", parse_mode=parse_pre)
     await asyncio.sleep(2)
     try:
@@ -166,6 +173,13 @@ async def _(event):
         )
     original = os.path.join(pwd, loc[0].strip())
     location = os.path.join(pwd, loc[1].strip())
+    
+    if not os.path.exists(original):
+        await edit_delete(
+            event,
+            f"there is no such directory or file with the name `{cat}` check again",
+        )
+        return
     mone = await edit_or_reply(event, "Moving the file ...", parse_mode=parse_pre)
     await asyncio.sleep(2)
     try:
