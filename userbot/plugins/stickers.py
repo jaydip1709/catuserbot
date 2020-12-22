@@ -141,7 +141,7 @@ async def newpacksticker(
     await conv.send_message("/skip")
     try:
         cat = Get(cat)
-        await event.client(cat)
+        await catevent.client(cat)
     except BaseException:
         pass
     await args.client.send_read_acknowledge(conv.chat_id)
@@ -236,7 +236,7 @@ async def add_to_pack(
     await conv.get_response()
     try:
         cat = Get(cat)
-        await event.client(cat)
+        await catevent.client(cat)
     except BaseException:
         pass
     await conv.send_message("/done")
@@ -329,7 +329,7 @@ async def kang(args):
                 pack = splat[0]
         try:
             cat = Get(cat)
-            await event.client(cat)
+            await args.client(cat)
         except BaseException:
             pass
         packnick = pack_nick(username, pack, is_anim)
