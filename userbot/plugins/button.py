@@ -5,9 +5,7 @@ import os
 import re
 
 from telethon import Button
-
 from . import BOT_USERNAME
-
 # regex obtained from:
 # https://github.com/PaulSonOfLars/tgbot/blob/master/tg_bot/modules/helper_funcs/string_handling.py#L23
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\<buttonurl:(?:/{0,2})(.+?)(:same)?\>)")
@@ -104,12 +102,13 @@ def build_keyboard(buttons):
 CMD_HELP.update(
     {
         "button": f"**Plugin : **`button`\
-    \n\n**SYNTAX : **`.cbutton`\
-    \n**USAGE :** For working of this you need your bot({BOT_USERNAME}) in the group/channel you are using and Buttons must be in the format as [Name on button]<buttonurl:link you want to open> and markdown is Default to html\
-    \n**EXAMPLE :** `.cbutton test [google]<buttonurl:https://www.google.com> [catuserbot]<buttonurl:https://t.me/catuserbot17:same> [support]<buttonurl:https://t.me/catuserbot_support>`\
-    \n\n**SYNTAX : **`.ibutton`\
-    \n**USAGE :** Buttons must be in the format as [Name on button]<buttonurl:link you want to open>\
-    \n**EXAMPLE :** `.ibutton test [google]<buttonurl:https://www.google.com> [catuserbot]<buttonurl:https://t.me/catuserbot17:same> [support]<buttonurl:https://t.me/catuserbot_support>`\
+    \n\n**Button post helpere**\
+    \n  •  **Syntax : **`.cbutton`\
+    \n  •  **Usage :** For working of this you need your bot({BOT_USERNAME}) in the group/channel you are using and Buttons must be in the format as [Name on button]<buttonurl:link you want to open> and markdown is Default to html\
+    \n  •  **Example :** `.cbutton test [google]<buttonurl:https://www.google.com> [catuserbot]<buttonurl:https://t.me/catuserbot17:same> [support]<buttonurl:https://t.me/catuserbot_support>`\
+    \n\n  •  **Syntax : **`.ibutton`\
+    \n  •  **Function :** Buttons must be in the format as [Name on button]<buttonurl:link you want to open>\
+    \n  •  **Example :** `.ibutton test [google]<buttonurl:https://www.google.com> [catuserbot]<buttonurl:https://t.me/catuserbot17:same> [support]<buttonurl:https://t.me/catuserbot_support>`\
     "
     }
 )
