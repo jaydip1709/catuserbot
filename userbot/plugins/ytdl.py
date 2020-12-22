@@ -187,8 +187,8 @@ async def youtube_search(cat):
     if Config.YOUTUBE_API_KEY:
         vi = await yt_search_api(cat)
         for v in vi:
-            result += f"☞ [{unescape(video['snippet']['title'])}](https://youtu.be/{vi[0]['id']['videoId']})"
-            result += f"\n`{unescape(video['snippet']['description'])}`\n\n"
+            result += f"☞ [{unescape(v['snippet']['title'])}](https://youtu.be/{v[0]['id']['videoId']})"
+            result += f"\n`{unescape(v['snippet']['description'])}`\n\n"
     if result is None:
         vi = await yt_search(cat)
         for v in vi:
