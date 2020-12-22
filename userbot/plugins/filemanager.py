@@ -137,7 +137,7 @@ async def _(event):
         )
     original = os.path.join(pwd, loc[0].strip())
     location = os.path.join(pwd, loc[1].strip())
-    
+
     if not os.path.exists(original):
         await edit_delete(
             event,
@@ -173,7 +173,7 @@ async def _(event):
         )
     original = os.path.join(pwd, loc[0].strip())
     location = os.path.join(pwd, loc[1].strip())
-    
+
     if not os.path.exists(original):
         await edit_delete(
             event,
