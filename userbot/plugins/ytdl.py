@@ -120,7 +120,7 @@ async def download_video(v_url):
     catthumb = Path(f"{ytdl_data['id']}.jpg")
     if not os.path.exists(catthumb):
         catthumb = Path(f"{ytdl_data['id']}.webp")
-    elif not os.path.exists(catthumb):
+    if not os.path.exists(catthumb):
         catthumb = None
     if song:
         await v_url.edit(
