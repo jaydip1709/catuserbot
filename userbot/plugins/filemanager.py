@@ -4,10 +4,11 @@ idea from userage
 """
 import io
 import os
+import shutil
 import time
 from pathlib import Path
-import shutil
-from . import runcmd, humanbytes
+
+from . import humanbytes, runcmd
 
 
 @bot.on(admin_cmd(pattern="ls ?(.*)"))
@@ -114,6 +115,7 @@ async def lst(event):
         await runcmd(catcmd)
         await edit_or_reply(event, f"Succesfully removed `{path}` file")
 
+
 @bot.on(admin_cmd(pattern="cpto(?: |$)(.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="cpto(?: |$)(.*)", allow_sudo=True))
 async def _(event):
@@ -171,7 +173,7 @@ async def _(event):
     except Exception as e:
         await edit_delete(mone, str(e), parse_mode=parse_pre)
 
-        
+
 CMD_HELP.update(
     {
         "filemanager": "**Plugin :**`filemanager`\
