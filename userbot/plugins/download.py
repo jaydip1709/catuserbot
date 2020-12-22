@@ -3,9 +3,10 @@
 import asyncio
 import math
 import os
+import shutil
 import time
 from datetime import datetime
-import shutil
+
 from pySmartDL import SmartDL
 
 from . import ALIVE_NAME, humanbytes, progress
@@ -137,6 +138,7 @@ async def _(event):
             "Reply to a message to download to my server.", parse_mode=parse_pre
         )
 
+
 @bot.on(admin_cmd(pattern="cpto(?: |$)(.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="cpto(?: |$)(.*)", allow_sudo=True))
 async def _(event):
@@ -152,18 +154,18 @@ async def _(event):
         )
     loc = input_str.split(";")
     if len(loc) != 2:
-        return await edit_delete(event,"use proper syntax .mvto from ; to destination" , parse_mode=parse_pre)
+        return await edit_delete(
+            event, "use proper syntax .mvto from ; to destination", parse_mode=parse_pre
+        )
     original = os.path.join(pwd, loc[0].strip())
     location = os.path.join(pwd, loc[1].strip())
-    mone = await edit_or_reply(
-            event, "copying the file ...", parse_mode=parse_pre
-        )
+    mone = await edit_or_reply(event, "copying the file ...", parse_mode=parse_pre)
     await asyncio.sleep(2)
     try:
-        shutil.copytree(original,location)
+        shutil.copytree(original, location)
         await mone.edit(f"Successfully copied the `{original}` to `{location}`")
     except Exception as e:
-        await edit_delete(mone , str(e), parse_mode=parse_pre)
+        await edit_delete(mone, str(e), parse_mode=parse_pre)
 
 
 @bot.on(admin_cmd(pattern="mvto(?: |$)(.*)", outgoing=True))
@@ -181,18 +183,19 @@ async def _(event):
         )
     loc = input_str.split(";")
     if len(loc) != 2:
-        return await edit_delete(event,"use proper syntax .mvto from ; to destination" , parse_mode=parse_pre)
+        return await edit_delete(
+            event, "use proper syntax .mvto from ; to destination", parse_mode=parse_pre
+        )
     original = os.path.join(pwd, loc[0].strip())
     location = os.path.join(pwd, loc[1].strip())
-    mone = await edit_or_reply(
-            event, "Moving the file ...", parse_mode=parse_pre
-        )
+    mone = await edit_or_reply(event, "Moving the file ...", parse_mode=parse_pre)
     await asyncio.sleep(2)
     try:
-        shutil.move(original,location)
+        shutil.move(original, location)
         await mone.edit(f"Successfully moved the `{original}` to `{location}`")
     except Exception as e:
-        await edit_delete(mone , str(e), parse_mode=parse_pre)        
+        await edit_delete(mone, str(e), parse_mode=parse_pre)
+
 
 CMD_HELP.update(
     {
