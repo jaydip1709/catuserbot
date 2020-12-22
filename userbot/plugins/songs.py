@@ -12,7 +12,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from validators.url import url
 
-from . import name_dl, reply_id, runcmd, song_dl, video_dl, yt_search
+from . import name_dl, reply_id, runcmd, song_dl, video_dl, yt_search as yt_search_no , yt_search_api
 
 # =========================================================== #
 #                           STRINGS                           #
@@ -218,6 +218,15 @@ async def cat_song_fetcer(event):
         await catevent.delete()
         await delete_messages(event, chat, purgeflag)
 
+async yt_search(cat):
+    videol = None
+    if Config.YOUTUBE_API_KEY:
+        vi = await yt_search_api(cat)
+        video = f"https://youtu.be/{vi[0]['id']['videoId']}"
+    if videol is None:
+        vi = await yt_search_no(cat)
+        video = vi[0]
+    return video
 
 CMD_HELP.update(
     {
