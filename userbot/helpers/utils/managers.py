@@ -1,7 +1,6 @@
-import re
-
 import asyncio
 import functools
+import re
 
 import requests
 
@@ -26,8 +25,11 @@ def paste_text(text):
         link = f"https://del.dog/{kresult['key']}"
     return link
 
+
 def run_sync(func, *args, **kwargs):
-    return asyncio.get_event_loop().run_in_executor(None, functools.partial(func, *args, **kwargs))
+    return asyncio.get_event_loop().run_in_executor(
+        None, functools.partial(func, *args, **kwargs)
+    )
 
 
 def run_async(loop, coro):
