@@ -223,9 +223,12 @@ async def cat_song_fetcer(event):
 
 async def yt_search(cat):
     videol = None
-    if Config.YOUTUBE_API_KEY:
-        vi = await yt_search_api(cat)
-        video = f"https://youtu.be/{vi[0]['id']['videoId']}"
+    try:
+        if Config.YOUTUBE_API_KEY:
+            vi = await yt_search_api(cat)
+            video = f"https://youtu.be/{vi[0]['id']['videoId']}"
+    except:
+        pass
     if videol is None:
         vi = await yt_search_no(cat)
         video = vi[0]
