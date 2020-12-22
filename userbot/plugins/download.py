@@ -155,14 +155,14 @@ async def _(event):
     loc = input_str.split(";")
     if len(loc) != 2:
         return await edit_delete(
-            event, "use proper syntax .mvto from ; to destination", parse_mode=parse_pre
+            event, "use proper syntax .cpto from ; to destination", parse_mode=parse_pre
         )
     original = os.path.join(pwd, loc[0].strip())
     location = os.path.join(pwd, loc[1].strip())
     mone = await edit_or_reply(event, "copying the file ...", parse_mode=parse_pre)
     await asyncio.sleep(2)
     try:
-        shutil.copytree(original, location)
+        await runcmd(f"cp -r {original} {location}")
         await mone.edit(f"Successfully copied the `{original}` to `{location}`")
     except Exception as e:
         await edit_delete(mone, str(e), parse_mode=parse_pre)
