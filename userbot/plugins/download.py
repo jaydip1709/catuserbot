@@ -35,7 +35,7 @@ async def _(event):
                     progress(d, t, mone, c_time, "trying to download")
                 ),
             )
-        except Exception as e: 
+        except Exception as e:
             await mone.edit(str(e))
         else:
             end = datetime.now()
@@ -102,12 +102,18 @@ async def _(event):
     pwd = os.getcwd()
     input_str = event.pattern_match.group(1)
     if not input_str:
-        return await edit_delete(event, "Where should i save this file. mention folder name" ,parse_mode=parse_pre)
-    location = os.path.join(pwd , input_str)
+        return await edit_delete(
+            event,
+            "Where should i save this file. mention folder name",
+            parse_mode=parse_pre,
+        )
+    location = os.path.join(pwd, input_str)
     if not os.path.isdir(location):
         os.makedirs(location)
     if event.reply_to_msg_id:
-        mone = await edit_or_reply(event, "Downloading the file ...",parse_mode=parse_pre)
+        mone = await edit_or_reply(
+            event, "Downloading the file ...", parse_mode=parse_pre
+        )
         start = datetime.now()
         reply_message = await event.get_reply_message()
         try:
@@ -120,7 +126,7 @@ async def _(event):
                 ),
             )
         except Exception as e:
-            await mone.edit(str(e),parse_mode=parse_pre)
+            await mone.edit(str(e), parse_mode=parse_pre)
         else:
             end = datetime.now()
             ms = (end - start).seconds
@@ -128,7 +134,9 @@ async def _(event):
                 f"**  •  Downloaded in {ms} seconds.**\n**  •  Downloaded to :- ** `{downloaded_file_name}`\n**  •  Downloaded by :-** {DEFAULTUSER}"
             )
     else:
-        await mone.edit("Reply to a message to download to my server.",parse_mode=parse_pre)        
+        await mone.edit(
+            "Reply to a message to download to my server.", parse_mode=parse_pre
+        )
 
 
 CMD_HELP.update(
