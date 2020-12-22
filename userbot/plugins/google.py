@@ -131,15 +131,19 @@ async def _(img):
         try:
             image = Image.open(photo)
         except OSError:
-            await catevent.edit("`Unsupported , most likely.`")
-            return
+            return await catevent.edit("**Unsupported file, most likely.**")
         name = "okgoogle.png"
         image.save(name, "PNG")
         image.close()
         # https://stackoverflow.com/questions/23270175/google-reverse-image-search-using-post-request#28792943
         searchUrl = "https://www.google.com/searchbyimage/upload"
-        multipart = {"encoded_image": (name, open(name, "rb")), "image_content": ""}
-        response = requests.post(searchUrl, files=multipart, allow_redirects=False)
+        multipart = {
+            "encoded_image": (name, open(name, "rb")),
+            "image_content": ""
+        }
+        response = requests.post(searchUrl,
+                                 files=multipart,
+                                 allow_redirects=False)
         fetchUrl = response.headers["Location"]
         if response != 400:
             await img.edit(
