@@ -182,7 +182,7 @@ async def yt_search(video_q):
     await video_q.edit(reply_text)
 
 
-async def youtube_search(query):
+async def youtube_search(cat):
     result = None
     if Config.YOUTUBE_API_KEY:
         vi = await yt_search_api(cat)
@@ -190,7 +190,7 @@ async def youtube_search(query):
             result += f"☞ [{unescape(video['snippet']['title'])}](https://youtu.be/{vi[0]['id']['videoId']})"
             result += f"\n`{unescape(video['snippet']['description'])}`\n\n"
     if result is None:
-        vi = await yt_search_no(cat)
+        vi = await yt_search(cat)
         for v in vi:
             result += f"☞ {v}\n\n"
     return result
