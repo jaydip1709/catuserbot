@@ -122,7 +122,7 @@ async def _(img):
     message = await img.get_reply_message()
     if message and message.media:
         photo = io.BytesIO()
-        await bot.download_media(message, photo)
+        await img.client.download_media(message, photo)
     else:
         await edit_or_reply(img, "`Reply to photo or sticker nigger.`")
         return
@@ -140,7 +140,7 @@ async def _(img):
         searchUrl = "https://www.google.com/searchbyimage/upload"
         multipart = {"encoded_image": (name, open(name, "rb")), "image_content": ""}
         response = requests.post(searchUrl, files=multipart, allow_redirects=False)
-        fetchUrl = response.headers.get("Location")
+        fetchUrl = response.headers['Location']
         if response != 400:
             await img.edit(
                 "`Image successfully uploaded to Google. Maybe.`"
