@@ -24,7 +24,7 @@ from youtube_dl.utils import (
     XAttrMetadataError,
 )
 
-from . import hmention, progress, reply_id
+from . import hmention, progress, yt_search, yt_search_api
 
 
 @bot.on(admin_cmd(pattern="yt(a|v)(?: |$)(.*)", outgoing=True))
@@ -174,63 +174,25 @@ async def download_video(v_url):
 @bot.on(admin_cmd(pattern="yts (.*)"))
 @bot.on(sudo_cmd(pattern="yts (.*)", allow_sudo=True))
 async def yt_search(video_q):
-    """ For .yts command, do a YouTube search from Telegram. """
     query = video_q.pattern_match.group(1)
-    result = ""
-    if not Config.YOUTUBE_API_KEY:
-        await edit_or_reply(
-            video_q,
-            "`Error: YouTube API key missing! Add it to reveal config vars in heroku or userbot/uniborgConfig.py in github fork.`",
-        )
-        return
-    video_q = await edit_or_reply(video_q, "```Processing...```")
+    video_q = await edit_or_reply(video_q, "```Searching...```")
     full_response = await youtube_search(query)
-    videos_json = full_response[1]
-    for video in videos_json:
-        title = f"{unescape(video['snippet']['title'])}"
-        link = f"https://youtu.be/{video['id']['videoId']}"
-        result += f"{title}\n{link}\n\n"
-    reply_text = f"**Search Query:**\n`{query}`\n\n**Results:**\n\n{result}"
+    reply_text = f"**•  Search Query:**\n`{query}`\n\n**•  Results:**\n\n{full_response}"
     await video_q.edit(reply_text)
 
 
-async def youtube_search(
-    query, order="relevance", token=None, location=None, location_radius=None
-):
-    """ Do a YouTube search. """
-    youtube = build(
-        "youtube", "v3", developerKey=Config.YOUTUBE_API_KEY, cache_discovery=False
-    )
-    search_response = (
-        youtube.search()
-        .list(
-            q=query,
-            type="video",
-            pageToken=token,
-            order=order,
-            part="id,snippet",
-            maxResults=10,
-            location=location,
-            locationRadius=location_radius,
-        )
-        .execute()
-    )
-    videos = [
-        search_result
-        for search_result in search_response.get("items", [])
-        if search_result["id"]["kind"] == "youtube#video"
-    ]
-
-    try:
-        nexttok = search_response["nextPageToken"]
-        return (nexttok, videos)
-    except HttpError:
-        nexttok = "last_page"
-        return (nexttok, videos)
-    except KeyError:
-        nexttok = "KeyError, try again."
-        return (nexttok, videos)
-
+async def youtube_search(query):
+   result = None
+    if Config.YOUTUBE_API_KEY:
+        vi = await yt_search_api(cat)
+        for v in vi:
+            result += f"☞ [{unescape(video['snippet']['title'])}](https://youtu.be/{vi[0]['id']['videoId']})"
+            result += f"\n`{unescape(video['snippet']['description'])}`\n\n"
+    if result is None:
+        vi = await yt_search_no(cat)
+        for v in vi:
+            result += f"☞ {v}\n\n"
+    return result
 
 @bot.on(admin_cmd(pattern="insta (.*)"))
 @bot.on(sudo_cmd(pattern="insta (.*)", allow_sudo=True))
