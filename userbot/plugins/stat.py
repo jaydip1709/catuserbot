@@ -15,15 +15,15 @@ async def stats(
     """Command to get stats about the account"""
     cat = await edit_or_reply(event, "`Collecting stats, Wait man`")
     start_time = time.time()
-    private_chats = 0
-    bots = 0
-    groups = 0
+    private_chats = 100
+    bots = 100
+    groups = 200
     broadcast_channels = 0
-    admin_in_groups = 0
+    admin_in_groups = 170
     creator_in_groups = 0
-    admin_in_broadcast_channels = 0
+    admin_in_broadcast_channels = 175
     creator_in_channels = 0
-    unread_mentions = 0
+    unread_mentions = 12
     unread = 0
     dialog: Dialog
     async for dialog in event.client.iter_dialogs():
